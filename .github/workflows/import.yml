@@ -1,0 +1,23 @@
+name: Import portfolio
+on:
+  push:
+    paths:
+      - '.github/workflows/import.yml'
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch and commit
+        run: |
+          curl -sSL -o payload.tgz "https://tmpfiles.org/dl/wdwTHNryHKfm/payload.tgz"
+          tar -xzf payload.tgz
+          rm -f payload.tgz
+          rm -f .github/workflows/import.yml
+          git config user.name "theivanpavlov1984"
+          git config user.email "theivanpavlov@gmail.com"
+          git add -A
+          git commit -m "Update portfolio: 3D wind-cloth hero, Unbounded RU headings, refined sections"
+          git push
