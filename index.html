@@ -270,6 +270,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 /* reveal helpers */
 .rv{opacity:0;transform:translateY(46px)}
+.sec-head h2 .ch{position:relative} /* inline, not inline-block: no extra line breaks, kerning kept */
 </style>
 </head>
 <body>
@@ -687,6 +688,7 @@ function applyLang(lang){
   document.getElementById("langEn").classList.toggle("is-on", lang === "en");
   document.getElementById("langRu").classList.toggle("is-on", lang === "ru");
   buildMarquee();
+  document.dispatchEvent(new CustomEvent("langchange"));
 }
 document.getElementById("langEn").addEventListener("click", function(){ applyLang("en"); });
 document.getElementById("langRu").addEventListener("click", function(){ applyLang("ru"); });
@@ -848,6 +850,42 @@ if(hasGsap && !reduced){
   gsap.utils.toArray(".rv").forEach(function(el){
     gsap.to(el, {opacity:1, y:0, duration:1, ease:"power3.out",
       scrollTrigger:{trigger:el, start:"top 88%"}});
+  });
+  /* section headings — chars fade in from blur */
+  var hidden = {opacity:0, filter:"blur(16px)", top:20}; /* top, not y: transform does not apply to inline spans */
+  function splitChars(h){
+    h.setAttribute("aria-label", h.textContent);
+    (function walk(node){
+      Array.prototype.slice.call(node.childNodes).forEach(function(n){
+        if(n.nodeType === 1){ walk(n); return; } /* keeps <em> accents intact */
+        if(n.nodeType !== 3) return;
+        var frag = document.createDocumentFragment();
+        n.textContent.split("").forEach(function(c){
+          if(/\s/.test(c)){ frag.appendChild(document.createTextNode(c)); return; }
+          var s = document.createElement("span");
+          s.className = "ch"; s.setAttribute("aria-hidden", "true"); s.textContent = c;
+          frag.appendChild(s);
+        });
+        n.parentNode.replaceChild(frag, n);
+      });
+    })(h);
+    return h.querySelectorAll(".ch");
+  }
+  var headings = gsap.utils.toArray(".sec-head h2").map(function(h){
+    var item = {el:h, done:false};
+    gsap.set(splitChars(h), hidden);
+    ScrollTrigger.create({trigger:h, start:"top 88%", once:true, onEnter:function(){
+      item.done = true;
+      gsap.to(h.querySelectorAll(".ch"), {opacity:1, filter:"blur(0px)", top:0, duration:1, ease:"power3.out", stagger:.03});
+    }});
+    return item;
+  });
+  /* language switch rewrites innerHTML: re-split headings that haven't revealed yet */
+  document.addEventListener("langchange", function(){
+    headings.forEach(function(item){
+      if(item.done){ item.el.removeAttribute("aria-label"); return; }
+      gsap.set(splitChars(item.el), hidden);
+    });
   });
   /* hero metric counters — fire shortly after intro */
   setTimeout(function(){
