@@ -91,6 +91,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .nav__links a:hover::after{transform:scaleX(1);transform-origin:left}
 /* resume: one link per language, swapped by the body .lang-ru class */
 body:not(.lang-ru) .nav__cv--ru,.lang-ru .nav__cv--en{display:none}
+/* Lucide "download" icon (ISC); absolute, so hover doesn't shift the menu */
+.nav__cv svg{position:absolute;left:100%;top:50%;width:13px;height:13px;margin:-7px 0 0 8px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .3s}
+.nav__cv svg .arrow{transform:translateY(-7px);transition:transform .5s var(--ease)}
+.nav__cv:hover svg,.nav__cv:focus-visible svg{opacity:1}
+.nav__cv:hover svg .arrow,.nav__cv:focus-visible svg .arrow{transform:none}
 .lang{display:flex;gap:2px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;border:1px solid var(--bone-faint);border-radius:99px;padding:3px}
 .lang button{padding:5px 13px;border-radius:99px;opacity:.55;transition:.3s}
 .lang button.is-on{background:var(--bone);color:var(--ink);opacity:1}
@@ -296,8 +301,8 @@ body:not(.lang-ru) .nav__cv--ru,.lang-ru .nav__cv--en{display:none}
     <a href="#about" data-en="About" data-ru="Обо мне">About</a>
     <a href="#experience" data-en="Experience" data-ru="Опыт">Experience</a>
     <a href="#contact" data-en="Contact" data-ru="Контакты">Contact</a>
-    <a class="nav__cv nav__cv--en" href="cv/ivan-pavlov-cv-en.pdf" download>Resume ↓</a>
-    <a class="nav__cv nav__cv--ru" href="cv/ivan-pavlov-cv-ru.pdf" download>Резюме ↓</a>
+    <a class="nav__cv nav__cv--en" href="cv/ivan-pavlov-cv-en.pdf" download>Resume<svg viewBox="0 0 24 24" aria-hidden="true"><path class="tray" d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><g class="arrow"><path d="M12 15V3"/><path d="m7 10 5 5 5-5"/></g></svg></a>
+    <a class="nav__cv nav__cv--ru" href="cv/ivan-pavlov-cv-ru.pdf" download>Резюме<svg viewBox="0 0 24 24" aria-hidden="true"><path class="tray" d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><g class="arrow"><path d="M12 15V3"/><path d="m7 10 5 5 5-5"/></g></svg></a>
   </div>
   <div class="lang" role="group" aria-label="Language">
     <button id="langEn" class="is-on">EN</button>
