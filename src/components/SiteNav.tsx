@@ -1,17 +1,23 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Dictionary, Locale } from '@/i18n-config'
 import { contacts } from '@/content/contacts'
 import type { CSSVars } from '@/types/css'
 import styles from './SiteNav.module.css'
+
+// three.js + physics (~1 MB): fetched on the first menu open, never on load
+const Badge = dynamic(() => import('./Badge'), { ssr: false })
 
 type Props = { lang: Locale; dict: Pick<Dictionary, 'header' | 'menu' | 'contacts'> }
 
 // header (logo with name ↔ role swap on hover) + burger + full-screen menu
 export function SiteNav({ lang, dict }: Props) {
   const [open, setOpen] = useState(false)
+  const [badge, setBadge] = useState(false)
+  const menuRef = useRef<HTMLDivElement>(null)
   const { header, menu, contacts: labels } = dict
   const other: Locale = lang === 'en' ? 'ru' : 'en'
 
@@ -62,7 +68,11 @@ export function SiteNav({ lang, dict }: Props) {
             aria-expanded={open}
             aria-controls="menu"
             aria-label={open ? header.closeMenu : header.openMenu}
-            onClick={() => setOpen(!open)}
+            onClick={() => {
+              setOpen(!open)
+              // the badge is for a mouse on a wide screen; phones get the plain menu
+              if (!open && matchMedia('(hover: hover) and (pointer: fine) and (min-width: 1024px)').matches) setBadge(true)
+            }}
           >
             <span />
             <span />
@@ -71,7 +81,7 @@ export function SiteNav({ lang, dict }: Props) {
       </header>
 
       {/* menu turns over like a book page (Studio Namma): a slanted edge sweeps down while the page straightens */}
-      <div id="menu" className={styles.menu} data-open={open} aria-hidden={!open}>
+      <div ref={menuRef} id="menu" className={styles.menu} data-open={open} aria-hidden={!open}>
         <div className={styles.page}>
           <nav className={styles.inner} onClick={(e) => (e.target as HTMLElement).closest('a') && close()}>
             {items.map((item, i) => (
@@ -120,6 +130,10 @@ export function SiteNav({ lang, dict }: Props) {
               </ul>
             </div>
           </nav>
+        </div>
+        {/* outside the turning page: R3F measures its canvas, and a rotated parent would skew that */}
+        <div className={styles.badge} aria-hidden="true">
+          {badge && <Badge open={open} eventSource={menuRef} first={header.first} last={header.last} />}
         </div>
       </div>
     </>
