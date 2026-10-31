@@ -1,0 +1,167 @@
+.reviews {
+  padding: 18vh 24px 8vh;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.title {
+  font-size: clamp(40px, 6vw, 104px);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-top: 18px;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ok {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #2da44e;
+  color: #fff;
+  font-size: 11px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+/* card = GitHub review: header strip, comment, labels */
+.card {
+  border: 1px solid rgba(13, 12, 10, 0.16);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.32);
+  overflow: hidden;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(13, 12, 10, 0.1);
+  background: rgba(13, 12, 10, 0.03);
+}
+
+.top p {
+  flex: 1;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.top :global(.mono) {
+  font-size: 10px;
+  color: rgba(13, 12, 10, 0.55);
+  letter-spacing: 0.04em;
+}
+
+.avatar {
+  flex: none;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.badge {
+  flex: none;
+  align-self: flex-start;
+  padding: 4px 8px;
+  border-radius: 99px;
+  border: 1px solid #2da44e;
+  color: #1a7f37;
+  font-size: 10px;
+}
+
+.quote {
+  padding: 22px 20px 8px;
+  font-size: clamp(18px, 1.6vw, 24px);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px 20px 4px;
+}
+
+.labels i {
+  font-style: normal;
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 99px;
+  background: rgba(255, 77, 0, 0.12);
+  color: #b83700;
+}
+
+.full {
+  padding: 8px 20px 18px;
+}
+
+.full summary {
+  cursor: pointer;
+  font-size: 11px;
+  color: rgba(13, 12, 10, 0.6);
+  list-style: none;
+  padding: 6px 0;
+}
+
+.full summary::-webkit-details-marker {
+  display: none;
+}
+
+.full summary::before {
+  content: '+ ';
+  color: var(--ember);
+}
+
+.full[open] summary::before {
+  content: '− ';
+}
+
+.full summary:hover {
+  color: var(--ink);
+}
+
+.full p {
+  font-size: 15px;
+  line-height: 1.55;
+  color: rgba(13, 12, 10, 0.78);
+  margin-top: 10px;
+  max-width: 60ch;
+}
+
+@media (max-width: 760px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .reviews {
+    padding: 14vh 16px 6vh;
+  }
+
+  /* the section header already says "Approved", so the per-card badge gives its width to the name */
+  .badge {
+    display: none;
+  }
+}

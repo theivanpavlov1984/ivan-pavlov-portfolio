@@ -1,0 +1,53 @@
+/* replaces the arrow: the native cursor is hidden while this one is active */
+:global(html.cur-tag),
+:global(html.cur-tag *) {
+  cursor: none !important;
+}
+
+.cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 60;
+  pointer-events: none;
+  padding: 5px 8px 6px;
+  background: var(--ink);
+  color: var(--bone);
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
+  border-radius: 0 9px 9px 9px; /* sharp top-left corner = hotspot */
+  opacity: 0;
+  will-change: transform;
+  transition:
+    opacity 0.2s,
+    background 0.2s,
+    color 0.2s,
+    scale 0.15s;
+}
+
+.cursor[data-on='true'] {
+  opacity: 1;
+}
+
+.cursor[data-hot='true'] {
+  background: var(--ember);
+  color: var(--ink);
+}
+
+.cursor[data-dark='true'] {
+  background: var(--bone);
+  color: var(--ink);
+}
+
+.cursor[data-down='true'] {
+  scale: 0.88;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .cursor {
+    display: none;
+  }
+}

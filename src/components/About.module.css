@@ -1,0 +1,363 @@
+/* pinned for 135vh of scroll (Pamidor's --travel) */
+.about {
+  height: calc(100vh + 135vh);
+  margin-top: 12vh;
+}
+
+.stick {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 28px;
+  padding: 0 24px;
+  max-width: 1400px;
+}
+
+/* ---------- story: chars fill grey → ember crest → ink ---------- */
+.text {
+  font-size: clamp(22px, 2.7vw, 44px);
+  font-weight: 500;
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+}
+
+.text [data-c] {
+  color: rgba(13, 12, 10, 0.2);
+  transition: color 0.2s linear;
+}
+
+.text [data-c='done'] {
+  color: var(--ink);
+}
+
+.text [data-c='crest'] {
+  color: var(--accent);
+}
+
+.wd {
+  white-space: nowrap;
+}
+
+/* links to cases: underline darkens with the text */
+.link {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.14em;
+  text-decoration-color: rgba(13, 12, 10, 0.15);
+  transition: text-decoration-color 0.3s;
+}
+
+.link[data-on='true'] {
+  text-decoration-color: var(--ink);
+}
+
+.link:hover {
+  text-decoration-color: var(--ember);
+}
+
+/* ---------- photo sticker, text flows around it ---------- */
+.sticker {
+  float: right;
+  width: min(19%, 220px);
+  aspect-ratio: 1;
+  margin: 6px 0 16px 40px;
+  shape-margin: 18px;
+  transform: rotate(-6deg);
+  overflow: hidden;
+  background: #cfc8ba;
+  box-shadow: 0 18px 40px -12px rgba(10, 10, 10, 0.28);
+}
+
+.sticker img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- inline mini-components ---------- */
+.ico {
+  display: inline-block;
+  height: 0.82em;
+  margin-left: 0.22em;
+  vertical-align: -0.08em;
+  opacity: 0.22;
+  transition: opacity 0.3s;
+  overflow: visible;
+}
+
+[data-c='done'] > .ico,
+[data-c='crest'] > .ico {
+  opacity: 1;
+}
+
+.code {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.06em;
+  padding: 0 0.2em;
+  border-radius: 0.16em;
+  background: var(--ink);
+  color: var(--bone);
+  font-family: var(--mono);
+  line-height: 1;
+}
+
+.code span {
+  font-size: 0.5em;
+  font-weight: 500;
+}
+
+.code i {
+  width: 0.05em;
+  height: 0.42em;
+  background: var(--ember);
+}
+
+[data-c='done'] > .code i {
+  animation: blink 1s steps(2) infinite;
+}
+
+.tog {
+  position: relative;
+  width: 1.45em;
+  border-radius: 99px;
+  background: rgba(13, 12, 10, 0.18);
+}
+
+.tog i {
+  position: absolute;
+  top: 0.1em;
+  left: 0.1em;
+  width: 0.62em;
+  height: 0.62em;
+  border-radius: 50%;
+  background: var(--bone);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+[data-c='done'] > .tog {
+  animation: tog-bg 2.4s ease-in-out infinite;
+}
+
+[data-c='done'] > .tog i {
+  animation: tog 2.4s ease-in-out infinite;
+}
+
+.spark {
+  width: 1.9em;
+}
+
+.spark polyline {
+  fill: none;
+  stroke: var(--ember);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.2s var(--ease-out);
+}
+
+[data-c='done'] > .spark polyline,
+[data-c='crest'] > .spark polyline {
+  stroke-dashoffset: 0;
+}
+
+.ticket {
+  width: 1.6em;
+  transform-origin: 50% 100%;
+}
+
+.ticket path {
+  fill: var(--ink);
+}
+
+.ticket line {
+  stroke: var(--bone);
+  stroke-width: 1.4;
+  stroke-dasharray: 2 2;
+}
+
+.ticket rect {
+  fill: var(--ember);
+}
+
+.ticket rect + rect {
+  fill: var(--bone);
+  opacity: 0.6;
+}
+
+[data-c='done'] > .ticket {
+  animation: tap 2.6s ease-in-out infinite;
+}
+
+.line {
+  width: 2.3em;
+}
+
+.line path {
+  fill: none;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+}
+
+.tangle {
+  stroke: var(--ink);
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.8s ease-in;
+}
+
+.straight {
+  stroke: var(--ember);
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.8s var(--ease-out) 0.6s;
+}
+
+[data-c='done'] > .line .tangle {
+  stroke-dashoffset: -1;
+}
+
+[data-c='done'] > .line .straight {
+  stroke-dashoffset: 0;
+}
+
+@keyframes blink {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes tog {
+  0%,
+  35% {
+    transform: none;
+  }
+  50%,
+  85% {
+    transform: translateX(0.63em);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes tog-bg {
+  0%,
+  35% {
+    background: rgba(13, 12, 10, 0.18);
+  }
+  50%,
+  85% {
+    background: var(--ember);
+  }
+  100% {
+    background: rgba(13, 12, 10, 0.18);
+  }
+}
+
+@keyframes tap {
+  0%,
+  70%,
+  100% {
+    transform: none;
+  }
+  78% {
+    transform: rotate(-8deg) translateY(-0.08em);
+  }
+  86% {
+    transform: rotate(4deg);
+  }
+}
+
+/* ---------- clients marquee ---------- */
+.clients {
+  border-top: 1px solid var(--grey);
+  padding-top: 18px;
+  display: grid;
+  gap: 14px;
+}
+
+.track {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  padding-right: 64px;
+  width: max-content;
+  height: 48px;
+  animation: marquee 40s linear infinite;
+}
+
+.track:hover .row {
+  animation-play-state: paused;
+}
+
+.logo {
+  display: block;
+  flex: none;
+  height: var(--h);
+  aspect-ratio: var(--r);
+  background: rgba(13, 12, 10, 0.42);
+  mask: var(--src) no-repeat center / contain;
+  transition: background 0.25s;
+}
+
+.logo:hover {
+  background: var(--ink);
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about {
+    height: auto;
+  }
+
+  .stick {
+    position: relative;
+    height: auto;
+    padding: 15vh 24px;
+  }
+
+  .text [data-c] {
+    color: var(--ink);
+  }
+
+  .row {
+    animation: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .stick {
+    padding: 0 16px;
+    gap: 20px;
+  }
+
+  .text {
+    font-size: 18px;
+  }
+
+  .sticker {
+    width: 32%;
+    margin: 4px 0 10px 16px;
+  }
+
+  .row {
+    gap: 40px;
+    padding-right: 40px;
+  }
+}

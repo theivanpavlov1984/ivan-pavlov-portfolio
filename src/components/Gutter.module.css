@@ -1,0 +1,58 @@
+/* difference blend keeps the numbers readable on both bone and ink sections */
+.gutter {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 19;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  color: rgba(236, 230, 218, 0.32);
+  font-size: 10px;
+  line-height: 22px;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.col {
+  will-change: transform;
+}
+
+.current {
+  position: fixed;
+  right: 10px;
+  top: calc(50% - 11px);
+  z-index: 21;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  height: 22px;
+  font-size: 10px;
+  color: var(--ember);
+  pointer-events: none;
+}
+
+.current span {
+  opacity: 0.85;
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+.current b {
+  font-weight: 500;
+  background: var(--ember);
+  color: var(--ink);
+  padding: 0 4px;
+  border-radius: 2px;
+  line-height: 16px;
+}
+
+/* only with a mouse and room for it */
+@media (hover: none), (pointer: coarse), (max-width: 760px) {
+  .gutter,
+  .current {
+    display: none;
+  }
+}

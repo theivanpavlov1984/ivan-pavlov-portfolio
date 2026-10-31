@@ -1,0 +1,475 @@
+/* ---------- hero: pinned for 260vh of scroll ---------- */
+.hero {
+  height: 260vh;
+  position: relative;
+}
+
+.stick {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.name {
+  display: inline-flex;
+  align-self: center;
+  align-items: center;
+  gap: 0.12em;
+  font-weight: 700;
+  font-size: 8vw; /* replaced by fitName() once the font is ready */
+  line-height: 0.82;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+/* each half is a mask: letters rise from below it during the intro */
+.half {
+  display: block;
+  will-change: transform;
+  clip-path: inset(-30% -10% 0 -10%);
+}
+
+.ch {
+  display: inline-block;
+  transition: transform 0.64s var(--ease-out) calc(var(--i) * 0.05s);
+}
+
+.slot {
+  width: 0.78em;
+  height: 0.78em;
+  flex: none;
+}
+
+/* the avatar circle; JS grows it with scroll */
+.win {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0.78em;
+  height: 0.78em;
+  border-radius: 50%;
+  background: var(--ink);
+  overflow: hidden;
+  will-change: width, height, transform;
+  z-index: 2;
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 0.7s var(--ease-out) 0.3s;
+}
+
+/* portrait: no will-change here, or the browser upscales a cached bitmap (blurry) */
+.por {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  aspect-ratio: 2400 / 3595;
+  transform-origin: 50% 11%;
+  transition: opacity 0.5s;
+}
+
+.por img {
+  object-fit: cover;
+}
+
+/* ---------- intro states (classes on <html>, set before first paint) ---------- */
+:global(.boot-pre) .ch {
+  transform: translateY(110%);
+}
+
+:global(.boot-pre) .win {
+  clip-path: inset(0 50% 0 50%);
+}
+
+.boot {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--bone);
+  font-family: var(--mono);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.boot b {
+  font-size: clamp(14px, 1.7vw, 28px);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.boot span {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ember);
+  white-space: nowrap;
+}
+
+:global(.loading) .boot {
+  opacity: 1;
+}
+
+:global(.loading) .por {
+  opacity: 0;
+  transition: none;
+}
+
+:global(.loading) .role > * {
+  opacity: 0;
+}
+
+.role > * {
+  transition: opacity 0.6s;
+}
+
+/* ---------- role line ---------- */
+.role {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+}
+
+.role :global(.mono):first-child {
+  margin-bottom: 10px;
+}
+
+.claim {
+  font-size: clamp(22px, 2.6vw, 40px);
+  font-weight: 600;
+  max-width: 16em;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- ember callouts, drawn in when the window is open ---------- */
+.co {
+  position: absolute;
+  pointer-events: none;
+  color: var(--ember);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.co span {
+  position: absolute;
+  white-space: nowrap;
+  background: var(--ember);
+  color: var(--ink);
+  padding: 3px 5px;
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.3s calc(var(--d) + 0.25s);
+}
+
+.win[data-open='true'] .co span {
+  opacity: 1;
+}
+
+.box {
+  border: 1px dashed var(--ember);
+  clip-path: inset(0 100% 100% 0);
+  transition: clip-path 0.6s var(--ease-out) var(--d);
+}
+
+.win[data-open='true'] .box {
+  clip-path: inset(-30px -200px -10px -10px);
+}
+
+.box span {
+  left: -1px;
+  bottom: calc(100% + 6px);
+}
+
+.focus {
+  width: 0;
+  height: 0;
+}
+
+.focus::before,
+.focus::after {
+  content: '';
+  position: absolute;
+  background: var(--ember);
+  transform: scale(0);
+  transition: transform 0.4s var(--ease-out) var(--d);
+}
+
+.focus::before {
+  left: -9px;
+  top: 0;
+  width: 18px;
+  height: 1px;
+}
+
+.focus::after {
+  left: 0;
+  top: -9px;
+  width: 1px;
+  height: 18px;
+}
+
+.win[data-open='true'] .focus::before,
+.win[data-open='true'] .focus::after {
+  transform: none;
+}
+
+.focus span {
+  left: 14px;
+  top: -7px;
+}
+
+/* leader: dot on the body, line out to the label */
+.lead,
+.leadL {
+  width: 0;
+  height: 0;
+}
+
+.lead::before,
+.leadL::before {
+  content: '';
+  position: absolute;
+  left: -3px;
+  top: -3px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ember);
+  transform: scale(0);
+  transition: transform 0.3s var(--d);
+}
+
+.lead::after,
+.leadL::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: clamp(60px, 14vw, 220px);
+  height: 1px;
+  background: var(--ember);
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.5s var(--ease-out) calc(var(--d) + 0.1s);
+}
+
+.leadL::after {
+  left: auto;
+  right: 0;
+  transform-origin: right;
+}
+
+.win[data-open='true'] .lead::before,
+.win[data-open='true'] .lead::after,
+.win[data-open='true'] .leadL::before,
+.win[data-open='true'] .leadL::after {
+  transform: none;
+}
+
+.lead span {
+  left: clamp(66px, calc(14vw + 6px), 226px);
+  top: -8px;
+}
+
+.leadL span {
+  right: clamp(66px, calc(14vw + 6px), 226px);
+  top: -8px;
+}
+
+/* ---------- live card + tokens, pinned to the screen corners inside the circle ---------- */
+.card {
+  position: absolute;
+  right: calc(60px + var(--ox, 0px));
+  bottom: calc(52px + var(--oy, 0px));
+  width: 260px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s 0.1s;
+}
+
+.win[data-open='true'] .card {
+  opacity: 1;
+}
+
+.demo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--g, 10px);
+  padding: var(--p, 14px);
+  background: var(--bone);
+  color: var(--ink);
+  border-radius: var(--r, 10px);
+  font-size: 14px;
+  line-height: 1.2;
+  transition: all 0.6s var(--ease-out);
+}
+
+.demo :global(.mono) {
+  font-size: 10px;
+}
+
+.demoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.demoTitle {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.demoChip {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: var(--bone-2);
+}
+
+.demoBar {
+  height: 6px;
+  border-radius: 99px;
+  background: var(--bone-2);
+  overflow: hidden;
+}
+
+.demoBar i {
+  display: block;
+  height: 100%;
+  width: var(--w, 62%);
+  background: var(--a, var(--ember));
+  border-radius: inherit;
+  transition: all 0.6s var(--ease-out);
+}
+
+.demoBtn {
+  align-self: flex-start;
+  padding: 8px 14px;
+  background: var(--a, var(--ember));
+  color: var(--ink);
+  border-radius: var(--r, 10px);
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.6s var(--ease-out);
+}
+
+.tokens {
+  position: absolute;
+  left: calc(16px + var(--ox, 0px));
+  bottom: calc(14px + var(--oy, 0px));
+  color: var(--bone);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+.tokens b {
+  color: var(--ember);
+  font-weight: 500;
+}
+
+.win[data-tokens='true'] .tokens {
+  opacity: 1;
+}
+
+/* ---------- recruiter meta grid ---------- */
+.meta {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--ink);
+  margin: 0 24px;
+}
+
+.meta > div {
+  padding: 16px 16px 56px 0;
+  border-right: 1px solid var(--grey);
+}
+
+.meta > div + div {
+  padding-left: 16px;
+}
+
+.meta > div:last-child {
+  border-right: 0;
+}
+
+.meta p {
+  font-size: clamp(15px, 1.3vw, 19px);
+  font-weight: 500;
+  margin-top: 10px;
+  line-height: 1.25;
+}
+
+@media (max-width: 760px) {
+  .meta {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .meta > div:nth-child(2) {
+    border-right: 0;
+  }
+
+  .meta > div:nth-child(3) {
+    padding-left: 0;
+  }
+
+  .role {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero {
+    height: auto;
+  }
+
+  .stick {
+    position: relative;
+  }
+}
+
+@media (max-width: 760px) {
+  /* leader callouts don't fit beside the body on a phone; keep the box and the focus mark */
+  .lead,
+  .leadL,
+  .tokens {
+    display: none;
+  }
+
+  .card {
+    right: calc(16px + var(--ox, 0px));
+    bottom: calc(28px + var(--oy, 0px));
+    width: 210px;
+  }
+
+  .role {
+    left: 16px;
+    right: 16px;
+    bottom: 40px;
+  }
+}
+
+@media (max-width: 760px) {
+  .meta {
+    margin: 0 16px;
+  }
+}

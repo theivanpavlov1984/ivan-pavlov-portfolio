@@ -1,0 +1,207 @@
+.cta {
+  padding: 20vh 24px 10vh;
+  text-align: center;
+}
+
+.cta > :global(.mono):first-child {
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: clamp(36px, 6vw, 104px);
+  font-weight: 700;
+  line-height: 0.95;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.status {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 8px;
+  margin: 28px 0 48px;
+  color: rgba(13, 12, 10, 0.65);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #3ddc84;
+}
+
+/* ---------- terminal ---------- */
+.term {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: left;
+  background: var(--ink);
+  color: var(--bone);
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 13px;
+  line-height: 1.7;
+  letter-spacing: 0;
+  text-transform: none;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.45);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 14px;
+  background: #1c1a17;
+  color: rgba(236, 230, 218, 0.5);
+  font-size: 11px;
+}
+
+.bar i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(236, 230, 218, 0.18);
+}
+
+.bar i:first-child {
+  background: var(--ember);
+}
+
+.bar span {
+  margin-left: 10px;
+}
+
+.body {
+  padding: 18px 20px 22px;
+  min-height: 300px;
+}
+
+.hint {
+  color: rgba(236, 230, 218, 0.4);
+  margin-bottom: 6px;
+}
+
+.body button {
+  display: block;
+  padding: 1px 0;
+  text-align: left;
+  font-family: inherit;
+}
+
+.body button:hover,
+.body button[data-ran='true'] {
+  color: var(--ember);
+}
+
+.body b {
+  color: var(--ember);
+  font-weight: 500;
+  margin-right: 4px;
+}
+
+.out {
+  white-space: pre-wrap;
+  color: #9be29b;
+  min-height: 1.7em;
+  margin-top: 10px;
+}
+
+.caret {
+  display: inline-block;
+  width: 8px;
+  height: 15px;
+  background: var(--bone);
+  vertical-align: -2px;
+  animation: blink 1s steps(2) infinite;
+}
+
+@keyframes blink {
+  to {
+    opacity: 0;
+  }
+}
+
+.plain {
+  margin-top: 22px;
+  font-size: 15px;
+  color: rgba(13, 12, 10, 0.6);
+}
+
+.plain button {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+
+.plain button:hover {
+  color: var(--ember);
+}
+
+/* ---------- bottom bar ---------- */
+.footBar {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  padding: 20px 24px 40px;
+  border-top: 1px solid var(--grey);
+  color: rgba(13, 12, 10, 0.6);
+}
+
+.footBar a:hover {
+  color: var(--ember);
+}
+
+/* ---------- toast ---------- */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 40px;
+  z-index: 70;
+  transform: translate(-50%, 20px);
+  opacity: 0;
+  pointer-events: none;
+  background: var(--ink);
+  color: var(--bone);
+  padding: 8px 14px;
+  border-radius: 99px;
+  font-size: 11px;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  transition:
+    opacity 0.25s,
+    transform 0.25s var(--ease-out);
+}
+
+.toast[data-on='true'] {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (max-width: 760px) {
+  .cta {
+    padding: 16vh 16px 8vh;
+  }
+
+  .body {
+    padding: 16px 16px 20px;
+    min-height: 260px;
+    font-size: 12px;
+  }
+
+  .footBar {
+    padding: 20px 16px 32px;
+  }
+
+  /* two-line status: keep the dot inline with the text */
+  .status {
+    display: block;
+  }
+
+  .dot {
+    display: inline-block;
+    margin-right: 6px;
+  }
+}

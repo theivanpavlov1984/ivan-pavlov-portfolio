@@ -1,0 +1,192 @@
+{
+  "meta": {
+    "title": "Иван Павлов — продуктовый дизайнер и дизайн-инженер",
+    "description": "Сеньор продуктовый дизайнер и дизайн-инженер. Дизайн-системы, enterprise и финтех-продукты для миллионов пользователей."
+  },
+  "header": {
+    "hey": "Привет, я",
+    "first": "Иван",
+    "last": "Павлов",
+    "status": "Открыт к работе",
+    "skills": "Product · Design Systems · React",
+    "openMenu": "Открыть меню",
+    "closeMenu": "Закрыть меню"
+  },
+  "menu": {
+    "home": "Главная",
+    "work": "Работы",
+    "about": "Обо мне"
+  },
+  "contacts": {
+    "email": "Email",
+    "telegram": "Telegram",
+    "linkedin": "LinkedIn",
+    "resume": "Резюме"
+  },
+  "hero": {
+    "role": "Senior Product Designer · Design Engineer",
+    "claimBefore": "Продуктовый дизайн с ",
+    "claimEm": "инженерным",
+    "claimAfter": " мышлением.",
+    "scroll": "Листай ↓",
+    "photoAlt": "Иван Павлов, портрет"
+  },
+  "facts": [
+    {
+      "label": "Based",
+      "lines": [
+        "Тбилиси, Грузия",
+        "Работаю удалённо"
+      ]
+    },
+    {
+      "label": "Focus",
+      "lines": [
+        "Дизайн-системы,",
+        "enterprise и финтех"
+      ]
+    },
+    {
+      "label": "Languages",
+      "lines": [
+        "Русский, английский C1",
+        "React / JS"
+      ]
+    },
+    {
+      "label": "Open for",
+      "lines": [
+        "Фултайм, контракт,",
+        "консалтинг по DS"
+      ]
+    }
+  ],
+  "about": {
+    "label": "(01) — Обо мне",
+    "text": "Привет, я Иван — продуктовый дизайнер, который открывает редактор кода{code} так же часто, как Figma. Больше 10 лет проектирую неброские вещи: [enterprise-системы](0), [транспортные приложения](1){ticket}, [торговые терминалы](3){spark} и [дизайн-системы](2){toggle} под ними. Люблю сложность, которая в итоге кажется очевидной{line}. Сейчас прототипирую на React, работаю с ИИ и делаю свои небольшие продукты — лучший способ понять передачу в разработку — побывать по обе её стороны.",
+    "workedWith": "(Работал с)",
+    "photoAlt": "Иван Павлов"
+  },
+  "principle": {
+    "label": "Принцип",
+    "title": "Говорю на языке кода",
+    "text": "Прототипирую на React и ревьюю фронт. Меньше правок, чище передача."
+  },
+  "work": {
+    "title": "Работы",
+    "meta": "(02) — 2017—2026",
+    "eraseHint": "Сотри легаси →",
+    "cases": [
+      {
+        "id": "01",
+        "name": "Transneft",
+        "meta": "Enterprise · 2023—26",
+        "before": "Три продукта, три разных интерфейса",
+        "after": "одна дизайн-система на весь пакет.",
+        "nums": [
+          {
+            "value": "3",
+            "label": "продукта"
+          },
+          {
+            "value": "15K",
+            "label": "MAU"
+          },
+          {
+            "value": "50+",
+            "label": "компонентов DS"
+          }
+        ],
+        "visual": "scratch"
+      },
+      {
+        "id": "02",
+        "name": "Sber Troika",
+        "meta": "Mobility · 2023",
+        "before": "Ничего",
+        "after": "транспортное приложение, которое 1,5 млн открывают каждый день.",
+        "nums": [
+          {
+            "value": "1.5M",
+            "label": "MAU"
+          },
+          {
+            "value": "iOS",
+            "label": "+ Android"
+          },
+          {
+            "value": "0→1",
+            "label": "zero-to-one"
+          }
+        ],
+        "visual": "ember"
+      },
+      {
+        "id": "03",
+        "name": "EPAM UUI",
+        "meta": "Design system · 2021—23",
+        "before": "Цвета, зашитые в каждый продукт",
+        "after": "токены, переменные и 4 темы на 20+ продуктах.",
+        "nums": [
+          {
+            "value": "20+",
+            "label": "продуктов"
+          },
+          {
+            "value": "4",
+            "label": "темы"
+          },
+          {
+            "value": "50K",
+            "label": "пользователей"
+          }
+        ],
+        "visual": "bone"
+      },
+      {
+        "id": "04",
+        "name": "Nominex / Marsbase",
+        "meta": "Crypto · 2021",
+        "before": "С нуля",
+        "after": "биржа, DEX и OTC-деск на одном UI-ките.",
+        "nums": [
+          {
+            "value": "250K",
+            "label": "MAU"
+          },
+          {
+            "value": "3",
+            "label": "платформы"
+          },
+          {
+            "value": "0→1",
+            "label": "zero-to-one"
+          }
+        ],
+        "visual": "dark"
+      }
+    ]
+  },
+  "reviews": {
+    "label": "(03) — Отзывы",
+    "titleBefore": "Ревью ",
+    "titleEm": "пройдено",
+    "status": "Одобрено · 4 ревьюера · LinkedIn",
+    "approvedChanges": "одобрил изменения",
+    "now": "сейчас",
+    "managed": "прямой руководитель",
+    "senior": "старший коллега",
+    "showFull": "Полный отзыв"
+  },
+  "footer": {
+    "label": "(04) — Контакты",
+    "ctaBefore": "Вашему продукту нужна ",
+    "ctaEm": "система",
+    "status": "Открыт к ролям — Senior / Lead Product Designer · дизайн-системы",
+    "termHint": "# кликни команду, чтобы выполнить",
+    "orEmail": "или просто напишите →",
+    "designedBy": "Спроектировал и собрал Иван — Figma + Claude Code",
+    "backToTop": "Наверх ↑",
+    "copied": "скопировано ✓"
+  }
+}
