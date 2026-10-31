@@ -41,7 +41,7 @@ export function Cases({ dict }: Props) {
   }, [work.cases.length])
 
   return (
-    <section ref={section} className={styles.work} id="work">
+    <section ref={section} className={styles.work} id="work" data-dark="">
       <div className={styles.head}>
         <RevealHeading before={work.title} className={styles.title} />
         <span className="mono">{work.meta}</span>

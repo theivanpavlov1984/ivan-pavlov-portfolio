@@ -23,7 +23,7 @@ export function Reviews({ dict }: { dict: Pick<Dictionary, 'reviews'> }) {
         {reviews.map((r) => (
           <article key={r.name} className={styles.card}>
             <header className={styles.top}>
-              <Image src={r.avatar} alt="" width={40} height={40} className={styles.avatar} />
+              <Image src={r.avatar} alt="" width={40} height={40} className={styles.avatar} data-tag="<Avatar />" />
               <p>
                 <b>{r.name}</b> {t.approvedChanges}
                 <br />

@@ -106,7 +106,7 @@ export function Footer({ dict }: Props) {
           <div className={styles.body}>
             <p className={styles.hint}>{footer.termHint}</p>
             {commands.map((c) => (
-              <button key={c.id} data-ran={ran === c.id} onClick={() => runCommand(c)}>
+              <button key={c.id} data-ran={ran === c.id} data-tag="<run>" onClick={() => runCommand(c)}>
                 <b>$</b> {c.label}
               </button>
             ))}
@@ -120,7 +120,9 @@ export function Footer({ dict }: Props) {
         </div>
 
         <p className={styles.plain}>
-          {footer.orEmail} <button onClick={copyEmail}>{contacts.email}</button>
+          {footer.orEmail} <button data-tag="<copy>" onClick={copyEmail}>
+            {contacts.email}
+          </button>
         </p>
       </section>
 

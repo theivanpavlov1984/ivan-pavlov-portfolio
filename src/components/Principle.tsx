@@ -5,7 +5,7 @@ import styles from './Principle.module.css'
 export function Principle({ dict }: { dict: Pick<Dictionary, 'principle'> }) {
   const { principle } = dict
   return (
-    <section className={styles.principle}>
+    <section className={styles.principle} id="principle">
       <article>
         <span className="mono">{principle.label}</span>
         <h3>{principle.title}</h3>

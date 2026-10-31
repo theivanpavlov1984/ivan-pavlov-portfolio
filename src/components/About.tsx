@@ -13,23 +13,23 @@ type Props = { dict: Pick<Dictionary, 'about'> }
 // ---------- inline mini-components: dim until the fill reaches them, then they come alive ----------
 const icons = {
   code: (
-    <span className={`${styles.ico} ${styles.code}`}>
+    <span className={`${styles.ico} ${styles.code}`} data-tag="<Code />">
       <span>&lt;/&gt;</span>
       <i />
     </span>
   ),
   toggle: (
-    <span className={`${styles.ico} ${styles.tog}`}>
+    <span className={`${styles.ico} ${styles.tog}`} data-tag="<Toggle />">
       <i />
     </span>
   ),
   spark: (
-    <svg className={`${styles.ico} ${styles.spark}`} viewBox="0 0 40 20">
+    <svg className={`${styles.ico} ${styles.spark}`} viewBox="0 0 40 20" data-tag="<Sparkline />">
       <polyline pathLength={1} points="1,16 8,11 14,13 21,5 27,9 33,3 39,6" />
     </svg>
   ),
   ticket: (
-    <svg className={`${styles.ico} ${styles.ticket}`} viewBox="0 0 36 22">
+    <svg className={`${styles.ico} ${styles.ticket}`} viewBox="0 0 36 22" data-tag="<Ticket />">
       <path d="M3 1H33a2 2 0 0 1 2 2V8a3 3 0 0 0 0 6v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V14a3 3 0 0 0 0-6V3a2 2 0 0 1 2-2Z" />
       <line x1="25" y1="3" x2="25" y2="19" />
       <rect x="6" y="7" width="13" height="3" rx="1" />
@@ -37,7 +37,7 @@ const icons = {
     </svg>
   ),
   line: (
-    <svg className={`${styles.ico} ${styles.line}`} viewBox="0 0 48 20">
+    <svg className={`${styles.ico} ${styles.line}`} viewBox="0 0 48 20" data-tag="<Path />">
       <path className={styles.tangle} pathLength={1} d="M2 10C8-4 14 24 18 8S26-2 24 14 34 18 30 6 42 4 46 10" />
       <path className={styles.straight} pathLength={1} d="M2 10H46" />
     </svg>
@@ -137,7 +137,7 @@ export function About({ dict }: Props) {
       <div className={styles.stick}>
         <p className="mono">{about.label}</p>
         <div className={styles.body}>
-          <span className={styles.sticker}>
+          <span className={styles.sticker} data-tag="<img>">
             <Image src={photo} alt={about.photoAlt} sizes="220px" placeholder="blur" />
           </span>
           <p ref={text} className={styles.text}>
@@ -177,6 +177,7 @@ export function About({ dict }: Props) {
                 <i
                   key={i}
                   className={styles.logo}
+                  data-tag="<Logo />"
                   role="img"
                   aria-label={c.name}
                   aria-hidden={i >= clients.length}

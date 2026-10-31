@@ -148,7 +148,7 @@ export function Hero({ dict }: Props) {
             </span>
           </h1>
 
-          <div ref={win} className={styles.win} aria-hidden="true">
+          <div ref={win} className={styles.win} aria-hidden="true" data-tag="<Card />" data-dark="">
             <div ref={por} className={styles.por}>
               <Image
                 src={heroImg}
