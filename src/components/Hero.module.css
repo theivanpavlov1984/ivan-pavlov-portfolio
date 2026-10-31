@@ -36,7 +36,7 @@
 
 .ch {
   display: inline-block;
-  transition: transform 0.64s var(--ease-out) calc(var(--i) * 0.05s);
+  transition: transform 0.9s var(--ease-out) calc(5s + var(--i) * 0.07s);
 }
 
 .slot {
@@ -58,7 +58,7 @@
   will-change: width, height, transform;
   z-index: 2;
   clip-path: inset(0 0 0 0);
-  transition: clip-path 0.7s var(--ease-out) 0.3s;
+  transition: clip-path 1s var(--ease-out) 5.5s;
 }
 
 /* portrait: no will-change here, or the browser upscales a cached bitmap (blurry) */
@@ -471,5 +471,162 @@
 @media (max-width: 760px) {
   .meta {
     margin: 0 16px;
+  }
+}
+
+/* ---------- intro blueprint: the hero's own layout guides ---------- */
+.bp {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0;
+  transform-origin: 50% 50%;
+  transition: opacity 0.5s;
+}
+
+:global(.loading) .bp {
+  opacity: 1;
+}
+
+.bpV,
+.bpH {
+  position: absolute;
+  background: rgba(13, 12, 10, 0.16);
+  transition:
+    transform 1.5s cubic-bezier(0.65, 0, 0.35, 1) var(--d),
+    background 0.3s,
+    box-shadow 0.3s;
+}
+
+.bpV {
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+.bpH {
+  left: 0;
+  right: 0;
+  height: 1px;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.bpNode {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border: 1px solid rgba(13, 12, 10, 0.45);
+  background: var(--bone);
+  transform: translate(-50%, -50%) scale(0);
+  transition:
+    transform 0.4s var(--ease-out) var(--d),
+    scale 0.15s,
+    border-color 0.2s,
+    background 0.2s;
+}
+
+.bpHot {
+  border-color: var(--ember);
+  background: var(--ember);
+}
+
+.bpLabel {
+  position: absolute;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgba(13, 12, 10, 0.5);
+  opacity: 0;
+  transition:
+    opacity 0.4s var(--d),
+    color 0.2s;
+}
+
+/* proximity to the pointer */
+.bpV[data-near='true'],
+.bpH[data-near='true'] {
+  background: rgba(255, 77, 0, 0.55);
+  box-shadow: 0 0 12px rgba(255, 77, 0, 0.25);
+}
+
+.bpNode[data-near='true'] {
+  border-color: var(--ember);
+  background: rgba(255, 77, 0, 0.35);
+}
+
+.bpLabel[data-near='true'] {
+  color: var(--ember);
+}
+
+/* coordinates that follow the cursor during the intro */
+.bpCoord {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 4;
+  pointer-events: none;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: rgba(13, 12, 10, 0.55);
+  white-space: pre;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+:global(.loading) .bpCoord[data-on='true'] {
+  opacity: 1;
+}
+
+/* guides draw once the hero stops being "pre" */
+:global(html:not(.boot-pre)) .bpV,
+:global(html:not(.boot-pre)) .bpH {
+  transform: none;
+}
+
+:global(html:not(.boot-pre)) .bpNode {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+:global(html:not(.boot-pre)) .bpLabel {
+  opacity: 1;
+}
+
+.bpLogBox {
+  position: absolute;
+  left: 24px;
+  bottom: 56px;
+  z-index: 3;
+  pointer-events: none;
+  font-size: clamp(11px, 0.4vw + 5px, 17px); /* grows on wide desktops: ×1.5 from ~3000px */
+  line-height: 1.8;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  color: rgba(13, 12, 10, 0.55);
+  white-space: pre;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+:global(.loading) .bpLogBox {
+  opacity: 1;
+}
+
+.bpLog b {
+  color: var(--ember);
+  font-weight: 500;
+}
+
+@media (max-width: 760px) {
+  .bpLogBox {
+    left: 16px;
+    bottom: 40px;
+    font-size: 10px;
   }
 }

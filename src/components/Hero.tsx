@@ -6,6 +6,7 @@ import heroImg from '@/assets/hero.jpg'
 import type { Dictionary } from '@/i18n-config'
 import type { CSSVars } from '@/types/css'
 import { LiveCard } from './LiveCard'
+import { blueprintPointer, drawBlueprint } from './heroBlueprint'
 import styles from './Hero.module.css'
 
 type Props = { dict: Pick<Dictionary, 'hero' | 'facts'> }
@@ -19,6 +20,7 @@ const callouts = [
 ] as const
 
 const bootSteps = ['color.accent', 'radius.md', 'space.inset', 'type.display', 'grid.columns']
+
 const clamp = (v: number) => Math.min(1, Math.max(0, v))
 const split = (word: string, from: number) =>
   [...word].map((c, i) => (
@@ -41,6 +43,8 @@ export function Hero({ dict }: Props) {
   const role = useRef<HTMLDivElement>(null)
   const pct = useRef<HTMLElement>(null)
   const tok = useRef<HTMLSpanElement>(null)
+  const grid = useRef<HTMLDivElement>(null)
+  const log = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const html = document.documentElement
@@ -100,11 +104,27 @@ export function Hero({ dict }: Props) {
     addEventListener('scroll', schedule, { passive: true })
     addEventListener('resize', fitName)
 
-    // intro: letters rise, the circle opens, token counter → portrait (≈1.5s, once per visit)
+    // intro (≈7s, once per visit): blueprint guides draw → letters land on the baseline → circle opens at the axis
     let alive = true
+    let stopLog = () => {}
+    let stopTilt = () => {}
     const runIntro = () => {
+      const bpCss = {
+        v: styles.bpV,
+        h: styles.bpH,
+        node: styles.bpNode,
+        hot: styles.bpHot,
+        label: styles.bpLabel,
+        logLine: styles.bpLog,
+        coord: styles.bpCoord,
+      }
+      stopLog = drawBlueprint(
+        { stick: stick.current!, name: name.current!, slot: slot.current!, grid: grid.current!, log: log.current! },
+        bpCss,
+      )
+      stopTilt = blueprintPointer(grid.current!, stick.current!, bpCss)
       requestAnimationFrame(() => requestAnimationFrame(() => html.classList.remove('boot-pre')))
-      const t0 = performance.now() + 300, dur = 1100
+      const t0 = performance.now() + 5000, dur = 1600
       const tick = (now: number) => {
         if (!alive) return
         const q = clamp((now - t0) / dur), k = 1 - Math.pow(1 - q, 3)
@@ -112,6 +132,7 @@ export function Hero({ dict }: Props) {
         tok.current!.textContent = bootSteps[Math.min(bootSteps.length - 1, Math.floor(k * bootSteps.length))]
         if (q < 1) return requestAnimationFrame(tick)
         setTimeout(() => {
+          stopTilt()
           html.classList.remove('loading')
           try {
             sessionStorage.setItem('intro', '1')
@@ -130,6 +151,8 @@ export function Hero({ dict }: Props) {
 
     return () => {
       alive = false
+      stopLog()
+      stopTilt()
       cancelAnimationFrame(raf)
       removeEventListener('scroll', schedule)
       removeEventListener('resize', fitName)
@@ -177,6 +200,10 @@ export function Hero({ dict }: Props) {
             </div>
             <LiveCard />
           </div>
+
+          {/* intro blueprint: layout guides + boot log, gone once the hero has assembled */}
+          <div ref={grid} className={styles.bp} aria-hidden="true" />
+          <div ref={log} className={`${styles.bpLogBox} mono`} aria-hidden="true" />
 
           <div ref={role} className={styles.role}>
             <div>
