@@ -37,8 +37,9 @@ export function TagCursor() {
       if (label !== last) cur.textContent = last = label // text changes only when the target changes
       cur.dataset.hot = String(hot)
       cur.dataset.dark = String(!hot && !!t.closest('[data-dark]'))
-      // top-left corner of the pill is the hotspot
-      cur.style.transform = `translate(${x}px, ${y}px)`
+      // top-left corner of the pill is the hotspot. Position goes through `translate`, which applies after `scale`:
+      // with `transform` the press scale would also shrink the offset and fling the cursor towards the corner
+      cur.style.translate = `${x}px ${y}px`
     }
     const schedule = () => {
       cancelAnimationFrame(raf)
