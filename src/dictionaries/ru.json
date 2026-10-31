@@ -166,5 +166,27 @@
         "visual": "dark"
       }
     ]
+  },
+  "reviews": {
+    "label": "(03) — Отзывы",
+    "titleBefore": "Ревью ",
+    "titleEm": "пройдено",
+    "status": "Одобрено · 4 ревьюера · LinkedIn",
+    "approvedChanges": "одобрил изменения",
+    "now": "сейчас",
+    "managed": "прямой руководитель",
+    "senior": "старший коллега",
+    "showFull": "Полный отзыв"
+  },
+  "footer": {
+    "label": "(04) — Контакты",
+    "ctaBefore": "Вашему продукту нужна ",
+    "ctaEm": "система",
+    "status": "Открыт к ролям — Senior / Lead Product Designer · дизайн-системы",
+    "termHint": "# кликни команду, чтобы выполнить",
+    "orEmail": "или просто напишите →",
+    "designedBy": "Спроектировал и собрал Иван — Figma + Claude Code",
+    "backToTop": "Наверх ↑",
+    "copied": "скопировано ✓"
   }
 }

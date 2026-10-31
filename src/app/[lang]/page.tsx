@@ -5,6 +5,8 @@ import { Hero } from '@/components/Hero'
 import { About } from '@/components/About'
 import { Principle } from '@/components/Principle'
 import { Cases } from '@/components/Cases'
+import { Reviews } from '@/components/Reviews'
+import { Footer } from '@/components/Footer'
 
 export default async function Page({ params }: PageProps<'/[lang]'>) {
   const { lang } = await params
@@ -16,14 +18,12 @@ export default async function Page({ params }: PageProps<'/[lang]'>) {
       <SiteNav lang={lang} dict={dict} />
       <main>
         <Hero dict={dict} />
-        {/* next sections are ported from docs/prototype one by one */}
         <About dict={dict} />
         <Principle dict={dict} />
         <Cases dict={dict} />
-        <section style={{ minHeight: '100vh', display: 'grid', placeItems: 'center' }}>
-          <p className="mono">reviews + footer — next step</p>
-        </section>
+        <Reviews dict={dict} />
       </main>
+      <Footer dict={dict} />
     </>
   )
 }

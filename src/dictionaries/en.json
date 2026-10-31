@@ -166,5 +166,27 @@
         "visual": "dark"
       }
     ]
+  },
+  "reviews": {
+    "label": "(03) — Reviews",
+    "titleBefore": "Code review: ",
+    "titleEm": "Ivan",
+    "status": "Approved · 4 reviewers · LinkedIn",
+    "approvedChanges": "approved these changes",
+    "now": "now",
+    "managed": "managed Ivan directly",
+    "senior": "senior colleague",
+    "showFull": "Show full review"
+  },
+  "footer": {
+    "label": "(04) — Contact",
+    "ctaBefore": "Your product deserves a ",
+    "ctaEm": "system",
+    "status": "Open to roles — Senior / Lead Product Designer · Design Systems",
+    "termHint": "# click a command to run it",
+    "orEmail": "or just email →",
+    "designedBy": "Designed & built by Ivan — Figma + Claude Code",
+    "backToTop": "Back to top ↑",
+    "copied": "copied ✓"
   }
 }
