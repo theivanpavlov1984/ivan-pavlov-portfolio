@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import Script from 'next/script'
 import { getDictionary, hasLocale, locales } from '@/i18n'
 import { hand, mono, serif, travels } from '@/fonts'
 import '../globals.css'
@@ -37,12 +36,12 @@ export default async function RootLayout({ children, params }: LayoutProps<'/[la
       className={`${travels.variable} ${mono.variable} ${serif.variable} ${hand.variable}`}
       suppressHydrationWarning
     >
-      <body>
-        {children}
-        <Script id="intro" strategy="beforeInteractive">
-          {introScript}
-        </Script>
-      </body>
+      <head>
+        {/* must run inline before first paint: next/script beforeInteractive is queued and runs after paint (hero flashes).
+            React logs a dev-only warning about this tag; it is only needed on the initial HTML load. */}
+        <script dangerouslySetInnerHTML={{ __html: introScript }} />
+      </head>
+      <body>{children}</body>
     </html>
   )
 }

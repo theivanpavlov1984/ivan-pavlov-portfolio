@@ -19,8 +19,9 @@
   text-transform: none;
   white-space: nowrap;
   border-radius: 0 9px 9px 9px; /* sharp top-left corner = hotspot */
+  transform-origin: 0 0; /* the press scale shrinks towards the hotspot, so the pointer doesn't drift */
   opacity: 0;
-  will-change: transform;
+  will-change: translate, scale;
   transition:
     opacity 0.2s,
     background 0.2s,
