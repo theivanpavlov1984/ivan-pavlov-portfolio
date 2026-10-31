@@ -76,6 +76,20 @@
   object-fit: cover;
 }
 
+/* WebGL copy of the photo that turns after the mouse by its depth map (heroDepth.ts); hidden until it has drawn */
+.depth {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.depth[data-on='true'] {
+  opacity: 1;
+}
+
 /* ---------- intro states (classes on <html>, set before first paint) ---------- */
 :global(.boot-pre) .ch {
   transform: translateY(110%);

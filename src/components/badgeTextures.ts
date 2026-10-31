@@ -163,17 +163,20 @@ export async function drawFront(name: { first: string; last: string }) {
   ctx.fillRect(0, 700, PAD, 120)
   dim(ctx, 0, 690, PAD, 690, '24', mono)
 
-  // name: first in ink, last muted, like the logo
+  // name, centred: first in ink, last muted, like the logo
   ctx.textAlign = 'left'
   ctx.font = `600 100px ${display}`
-  ctx.fillStyle = INK
-  ctx.fillText(name.first, PAD, 800)
   const fw = ctx.measureText(name.first + ' ').width
+  const nx = (W - fw - ctx.measureText(name.last).width) / 2
+  ctx.fillStyle = INK
+  ctx.fillText(name.first, nx, 800)
   ctx.fillStyle = GREY
-  ctx.fillText(name.last, PAD + fw, 800)
+  ctx.fillText(name.last, nx + fw, 800)
+  ctx.textAlign = 'center'
   ctx.font = `500 26px ${mono}`
   ctx.fillStyle = INK
-  ctx.fillText('PRODUCT DESIGNER · DESIGN ENGINEER', PAD, 860)
+  ctx.fillText('PRODUCT DESIGNER · DESIGN ENGINEER', W / 2, 884)
+  ctx.textAlign = 'left'
 
   // props table
   const rows: [string, string][] = [
