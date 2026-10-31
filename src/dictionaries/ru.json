@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "title": "Иван Павлов — продуктовый дизайнер и дизайн-инженер",
+    "description": "Сеньор продуктовый дизайнер и дизайн-инженер. Дизайн-системы, enterprise и финтех-продукты для миллионов пользователей."
+  },
+  "header": {
+    "hey": "Привет, я",
+    "first": "Иван",
+    "last": "Павлов",
+    "status": "Открыт к работе",
+    "skills": "Product · Design Systems · React",
+    "openMenu": "Открыть меню",
+    "closeMenu": "Закрыть меню"
+  },
+  "menu": {
+    "home": "Главная",
+    "work": "Работы",
+    "about": "Обо мне"
+  },
+  "contacts": {
+    "email": "Email",
+    "telegram": "Telegram",
+    "linkedin": "LinkedIn",
+    "resume": "Резюме"
+  },
+  "hero": {
+    "role": "Senior Product Designer · Design Engineer",
+    "claimBefore": "Продуктовый дизайн с ",
+    "claimEm": "инженерным",
+    "claimAfter": " мышлением.",
+    "scroll": "Листай ↓",
+    "photoAlt": "Иван Павлов, портрет"
+  },
+  "facts": [
+    {
+      "label": "Based",
+      "lines": [
+        "Тбилиси, Грузия",
+        "Работаю удалённо"
+      ]
+    },
+    {
+      "label": "Focus",
+      "lines": [
+        "Дизайн-системы,",
+        "enterprise и финтех"
+      ]
+    },
+    {
+      "label": "Languages",
+      "lines": [
+        "Русский, английский C1",
+        "React / JS"
+      ]
+    },
+    {
+      "label": "Open for",
+      "lines": [
+        "Фултайм, контракт,",
+        "консалтинг по DS"
+      ]
+    }
+  ]
+}

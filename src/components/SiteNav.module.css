@@ -1,0 +1,257 @@
+/* ---------- header ---------- */
+.top {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 34px 24px 18px;
+  color: var(--ink);
+  transition: color 0.3s;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* logo: stacked layers swap by opacity on hover (Sebastian Wittig) */
+.logo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hey {
+  position: absolute;
+  left: -2px;
+  top: -22px;
+  font-family: var(--hand);
+  font-size: 22px;
+  line-height: 1;
+  transform: rotate(-3.8deg);
+  opacity: 0.75;
+}
+
+.swap {
+  display: grid;
+}
+
+.swap > * {
+  grid-area: 1 / 1;
+  transition: opacity 0.25s ease;
+}
+
+.name,
+.role {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.logo b {
+  font-weight: 600;
+}
+
+.logo i {
+  font-style: normal;
+  opacity: 0.45;
+}
+
+.status {
+  font-size: 13px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #3ddc84;
+  margin-left: 4px;
+}
+
+.role,
+.alt {
+  opacity: 0;
+}
+
+.logo:hover .name,
+.logo:hover .def {
+  opacity: 0;
+}
+
+.logo:hover .role,
+.logo:hover .alt {
+  opacity: 1;
+}
+
+/* burger: two lines meet into an X */
+.burger {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 0 10px 12px;
+}
+
+.burger span {
+  display: block;
+  width: 36px;
+  height: 2px;
+  background: currentColor;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.top[data-open='true'] .burger span:first-child {
+  transform: translateY(5px) rotate(45deg);
+}
+
+.top[data-open='true'] .burger span:last-child {
+  transform: translateY(-5px) rotate(-45deg);
+}
+
+/* ---------- menu ---------- */
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 35;
+  background: var(--bone);
+  overflow-y: auto;
+  transform: translateX(100%);
+  visibility: hidden;
+  transition:
+    transform 0.62s var(--ease-out),
+    visibility 0s 0.62s;
+}
+
+.menu[data-open='true'] {
+  transform: none;
+  visibility: visible;
+  transition: transform 0.62s var(--ease-out);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  padding: 140px 24px 64px;
+}
+
+.mask {
+  overflow: hidden;
+}
+
+/* closed: snap down quickly; open: rise with stagger .18s + i * .06s */
+.item,
+.rise {
+  display: block;
+  transform: translateY(100%);
+  opacity: 0;
+  transition:
+    transform 0.15s,
+    opacity 0.15s;
+}
+
+.menu[data-open='true'] .item,
+.menu[data-open='true'] .rise {
+  transform: none;
+  opacity: 1;
+  transition:
+    transform 0.64s var(--ease-out) calc(0.18s + var(--i) * 0.06s),
+    opacity 0.64s var(--ease-out) calc(0.18s + var(--i) * 0.06s),
+    color 0.2s;
+}
+
+.item {
+  font-size: clamp(44px, 6vw, 96px);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  padding: 6px 0;
+  width: max-content;
+}
+
+.item:hover {
+  color: var(--ember);
+}
+
+/* contact rows */
+.rows {
+  margin-top: 48px;
+  max-width: 760px;
+  border-top: 1px solid var(--ink);
+}
+
+.rows li,
+.rows li > a {
+  display: grid;
+  grid-template-columns: 140px 1fr 24px;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.rows li {
+  border-bottom: 1px solid var(--grey);
+}
+
+.rows li > a {
+  grid-column: 1 / -1;
+  padding: 16px 0;
+  transition: color 0.2s;
+}
+
+.rows b {
+  font-size: clamp(17px, 1.6vw, 22px);
+  font-weight: 500;
+}
+
+.rows i {
+  font-style: normal;
+  text-align: right;
+  color: var(--ember);
+}
+
+.rows li > a:hover,
+.cv a:hover {
+  color: var(--ember);
+}
+
+.cv {
+  padding: 16px 0;
+}
+
+.cv a {
+  margin-right: 18px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+
+@media (max-width: 760px) {
+  .rows li,
+  .rows li > a {
+    grid-template-columns: 90px 1fr 18px;
+  }
+}
+
+/* hidden during the intro, light while the hero portrait covers the screen */
+:global(.loading) .top {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.top {
+  transition:
+    color 0.3s,
+    opacity 0.6s;
+}
+
+:global(html[data-hero-dark='true']) .top:not([data-open='true']) {
+  color: var(--bone);
+}

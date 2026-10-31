@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "title": "Ivan Pavlov — Product Designer & Design Engineer",
+    "description": "Senior Product Designer and Design Engineer. Design systems, enterprise and fintech products used by millions."
+  },
+  "header": {
+    "hey": "Hey, I'm",
+    "first": "Ivan",
+    "last": "Pavlov",
+    "status": "Open for work",
+    "skills": "Product · Design Systems · React",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "menu": {
+    "home": "Home",
+    "work": "Work",
+    "about": "About"
+  },
+  "contacts": {
+    "email": "Email",
+    "telegram": "Telegram",
+    "linkedin": "LinkedIn",
+    "resume": "Resume"
+  },
+  "hero": {
+    "role": "Senior Product Designer · Design Engineer",
+    "claimBefore": "Product design with an ",
+    "claimEm": "engineer's",
+    "claimAfter": " brain.",
+    "scroll": "Scroll ↓",
+    "photoAlt": "Ivan Pavlov, portrait"
+  },
+  "facts": [
+    {
+      "label": "Based",
+      "lines": [
+        "Tbilisi, Georgia",
+        "Working worldwide"
+      ]
+    },
+    {
+      "label": "Focus",
+      "lines": [
+        "Design systems,",
+        "enterprise & fintech"
+      ]
+    },
+    {
+      "label": "Languages",
+      "lines": [
+        "Russian, English C1",
+        "React / JS"
+      ]
+    },
+    {
+      "label": "Open for",
+      "lines": [
+        "Full-time, contract,",
+        "DS consulting"
+      ]
+    }
+  ]
+}
