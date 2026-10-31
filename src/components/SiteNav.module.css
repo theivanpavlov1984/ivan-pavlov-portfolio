@@ -140,7 +140,14 @@
 .inner {
   display: flex;
   flex-direction: column;
+  min-height: 100dvh;
   padding: 140px 24px 64px;
+}
+
+/* contacts: pushed to the bottom of the screen and centred */
+.contacts {
+  margin-top: auto;
+  padding-top: 48px;
 }
 
 .mask {
@@ -183,8 +190,8 @@
 
 /* contact rows */
 .rows {
-  margin-top: 48px;
   max-width: 760px;
+  margin-inline: auto;
   border-top: 1px solid var(--ink);
 }
 

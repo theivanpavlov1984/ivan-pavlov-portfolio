@@ -81,7 +81,7 @@ export function SiteNav({ lang, dict }: Props) {
             </div>
           ))}
 
-          <div className={styles.mask} style={{ '--i': items.length + 1 } as CSSVars}>
+          <div className={`${styles.mask} ${styles.contacts}`} style={{ '--i': items.length + 1 } as CSSVars}>
             <ul className={`${styles.rows} ${styles.rise}`}>
               <li>
                 <a href={`mailto:${contacts.email}`}>
