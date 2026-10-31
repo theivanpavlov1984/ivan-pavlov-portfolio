@@ -118,23 +118,40 @@
 }
 
 /* ---------- menu ---------- */
+/* turns over like a book page (Studio Namma): the bottom edge sweeps down on a slant (right side lower),
+   while the page underneath straightens from −15° / ×1.5. Closing plays it back up. */
 .menu {
+  /* quart-out, fitted frame by frame to Namma: opens in 1.15s, closes in 1.1s */
+  --ease-page: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --page: 1.1s var(--ease-page);
   position: fixed;
   inset: 0;
   z-index: 35;
+  overflow: hidden;
   background: var(--bone);
-  overflow-y: auto;
-  transform: translateX(100%);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
   visibility: hidden;
   transition:
-    transform 0.62s var(--ease-out),
-    visibility 0s 0.62s;
+    clip-path var(--page),
+    visibility 0s 1.1s;
 }
 
 .menu[data-open='true'] {
-  transform: none;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 175%, 0% 100%);
   visibility: visible;
-  transition: transform 0.62s var(--ease-out);
+  transition: clip-path 1.15s var(--ease-page);
+}
+
+.page {
+  height: 100%;
+  overflow-y: auto;
+  transform: translate(-100px, -100px) rotate(-15deg) scale(1.5);
+  transition: transform var(--page);
+}
+
+.menu[data-open='true'] .page {
+  transform: none;
+  transition-duration: 1.15s;
 }
 
 .inner {
@@ -154,25 +171,31 @@
   overflow: hidden;
 }
 
-/* closed: snap down quickly; open: rise with stagger .18s + i * .06s */
+/* items rise from their masks, each from a different depth, so the lines arrive at different speeds.
+   Closing: they stay put and drop back only once the page has turned away. */
 .item,
 .rise {
   display: block;
-  transform: translateY(100%);
-  opacity: 0;
-  transition:
-    transform 0.15s,
-    opacity 0.15s;
+  transform: translateY(calc(120% + var(--i) * 50%));
+  transition: transform 0s 1.1s;
 }
 
 .menu[data-open='true'] .item,
 .menu[data-open='true'] .rise {
   transform: none;
-  opacity: 1;
   transition:
-    transform 0.64s var(--ease-out) calc(0.18s + var(--i) * 0.06s),
-    opacity 0.64s var(--ease-out) calc(0.18s + var(--i) * 0.06s),
+    transform 1.3s cubic-bezier(0.16, 1, 0.3, 1) calc(0.25s + var(--i) * 0.05s),
     color 0.2s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu,
+  .menu[data-open='true'],
+  .page,
+  .item,
+  .rise {
+    transition: none !important;
+  }
 }
 
 .item {

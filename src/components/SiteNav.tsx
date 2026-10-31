@@ -70,55 +70,57 @@ export function SiteNav({ lang, dict }: Props) {
         </div>
       </header>
 
-      {/* panel slides in from the right, links rise from a mask (Pamidor timings) */}
+      {/* menu turns over like a book page (Studio Namma): a slanted edge sweeps down while the page straightens */}
       <div id="menu" className={styles.menu} data-open={open} aria-hidden={!open}>
-        <nav className={styles.inner} onClick={(e) => (e.target as HTMLElement).closest('a') && close()}>
-          {items.map((item, i) => (
-            <div key={item.href} className={styles.mask} style={{ '--i': i } as CSSVars}>
-              <a href={item.href} className={styles.item}>
-                {item.label}
-              </a>
-            </div>
-          ))}
+        <div className={styles.page}>
+          <nav className={styles.inner} onClick={(e) => (e.target as HTMLElement).closest('a') && close()}>
+            {items.map((item, i) => (
+              <div key={item.href} className={styles.mask} style={{ '--i': i } as CSSVars}>
+                <a href={item.href} className={styles.item}>
+                  {item.label}
+                </a>
+              </div>
+            ))}
 
-          <div className={`${styles.mask} ${styles.contacts}`} style={{ '--i': items.length + 1 } as CSSVars}>
-            <ul className={`${styles.rows} ${styles.rise}`}>
-              <li>
-                <a href={`mailto:${contacts.email}`}>
-                  <span className="mono">{labels.email}</span>
-                  <b>{contacts.email}</b>
-                  <i>↗</i>
-                </a>
-              </li>
-              <li>
-                <a href={contacts.telegram.url} target="_blank" rel="noopener">
-                  <span className="mono">{labels.telegram}</span>
-                  <b>{contacts.telegram.handle}</b>
-                  <i>↗</i>
-                </a>
-              </li>
-              <li>
-                <a href={contacts.linkedin.url} target="_blank" rel="noopener">
-                  <span className="mono">{labels.linkedin}</span>
-                  <b>{contacts.linkedin.handle}</b>
-                  <i>↗</i>
-                </a>
-              </li>
-              <li className={styles.cv}>
-                <span className="mono">{labels.resume}</span>
-                <b>
-                  <a href={contacts.cv.en} target="_blank">
-                    EN · PDF
+            <div className={`${styles.mask} ${styles.contacts}`} style={{ '--i': items.length + 1 } as CSSVars}>
+              <ul className={`${styles.rows} ${styles.rise}`}>
+                <li>
+                  <a href={`mailto:${contacts.email}`}>
+                    <span className="mono">{labels.email}</span>
+                    <b>{contacts.email}</b>
+                    <i>↗</i>
                   </a>
-                  <a href={contacts.cv.ru} target="_blank">
-                    RU · PDF
+                </li>
+                <li>
+                  <a href={contacts.telegram.url} target="_blank" rel="noopener">
+                    <span className="mono">{labels.telegram}</span>
+                    <b>{contacts.telegram.handle}</b>
+                    <i>↗</i>
                   </a>
-                </b>
-                <i>↓</i>
-              </li>
-            </ul>
-          </div>
-        </nav>
+                </li>
+                <li>
+                  <a href={contacts.linkedin.url} target="_blank" rel="noopener">
+                    <span className="mono">{labels.linkedin}</span>
+                    <b>{contacts.linkedin.handle}</b>
+                    <i>↗</i>
+                  </a>
+                </li>
+                <li className={styles.cv}>
+                  <span className="mono">{labels.resume}</span>
+                  <b>
+                    <a href={contacts.cv.en} target="_blank">
+                      EN · PDF
+                    </a>
+                    <a href={contacts.cv.ru} target="_blank">
+                      RU · PDF
+                    </a>
+                  </b>
+                  <i>↓</i>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
       </div>
     </>
   )
