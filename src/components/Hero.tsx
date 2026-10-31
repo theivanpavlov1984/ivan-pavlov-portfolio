@@ -65,10 +65,12 @@ export function Hero({ dict }: Props) {
         const ox = (e * (d - innerWidth)) / 2, oy = (e * (d - vh)) / 2
         w.style.setProperty('--ox', ox + 'px')
         w.style.setProperty('--oy', oy + 'px')
+        // when open the photo covers the screen: on a tall phone it's height-bound, so it gets wider than the screen and centred
         const pr = por.current!
-        pr.style.left = ox + 'px'
+        const coverW = Math.max(innerWidth, vh * (heroImg.width / heroImg.height))
+        pr.style.left = ox + ((innerWidth - coverW) / 2) * e + 'px'
         pr.style.top = oy + 'px'
-        pr.style.width = d - 2 * ox + 'px'
+        pr.style.width = d * (1 - e) + coverW * e + 'px'
         // avatar crop: head + neck centred in the circle; scale ≥2.73 keeps the photo's top edge above the frame
         pr.style.transform = `translateY(${(1 - e) * 19}%) scale(${1 + (1 - e) * 1.75})`
         const shift = e * innerWidth * 0.6

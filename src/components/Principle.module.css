@@ -11,7 +11,7 @@
   padding-top: 16px;
 }
 
-.principle .mono {
+.principle :global(.mono) {
   grid-column: 1 / -1;
 }
 
@@ -33,5 +33,11 @@
 @media (max-width: 760px) {
   .principle article {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .principle {
+    padding: 0 16px 16vh;
   }
 }

@@ -142,7 +142,7 @@
   gap: 24px;
 }
 
-.role .mono:first-child {
+.role :global(.mono):first-child {
   margin-bottom: 10px;
 }
 
@@ -319,7 +319,7 @@
   transition: all 0.6s var(--ease-out);
 }
 
-.demo .mono {
+.demo :global(.mono) {
   font-size: 10px;
 }
 
@@ -444,5 +444,32 @@
 
   .stick {
     position: relative;
+  }
+}
+
+@media (max-width: 760px) {
+  /* leader callouts don't fit beside the body on a phone; keep the box and the focus mark */
+  .lead,
+  .leadL,
+  .tokens {
+    display: none;
+  }
+
+  .card {
+    right: calc(16px + var(--ox, 0px));
+    bottom: calc(28px + var(--oy, 0px));
+    width: 210px;
+  }
+
+  .role {
+    left: 16px;
+    right: 16px;
+    bottom: 40px;
+  }
+}
+
+@media (max-width: 760px) {
+  .meta {
+    margin: 0 16px;
   }
 }

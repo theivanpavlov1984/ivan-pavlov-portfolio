@@ -340,3 +340,24 @@
     animation: none;
   }
 }
+
+@media (max-width: 760px) {
+  .stick {
+    padding: 0 16px;
+    gap: 20px;
+  }
+
+  .text {
+    font-size: 18px;
+  }
+
+  .sticker {
+    width: 32%;
+    margin: 4px 0 10px 16px;
+  }
+
+  .row {
+    gap: 40px;
+    padding-right: 40px;
+  }
+}

@@ -201,7 +201,17 @@
     grid-template-columns: 40px 1fr;
   }
 
-  .bar .mono:last-child {
+  .head {
+    padding: 72px 16px 24px;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .stick {
+    padding: 0 16px;
+  }
+
+  .bar :global(.mono):last-child {
     display: none;
   }
 

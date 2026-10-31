@@ -3,7 +3,7 @@
   text-align: center;
 }
 
-.cta > .mono:first-child {
+.cta > :global(.mono):first-child {
   margin-bottom: 20px;
 }
 
@@ -16,8 +16,9 @@
 }
 
 .status {
-  display: inline-flex;
-  align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
   gap: 8px;
   margin: 28px 0 48px;
   color: rgba(13, 12, 10, 0.65);
@@ -177,4 +178,30 @@
 .toast[data-on='true'] {
   opacity: 1;
   transform: translate(-50%, 0);
+}
+
+@media (max-width: 760px) {
+  .cta {
+    padding: 16vh 16px 8vh;
+  }
+
+  .body {
+    padding: 16px 16px 20px;
+    min-height: 260px;
+    font-size: 12px;
+  }
+
+  .footBar {
+    padding: 20px 16px 32px;
+  }
+
+  /* two-line status: keep the dot inline with the text */
+  .status {
+    display: block;
+  }
+
+  .dot {
+    display: inline-block;
+    margin-right: 6px;
+  }
 }
