@@ -7,6 +7,7 @@ import type { Dictionary } from '@/i18n-config'
 import type { CSSVars } from '@/types/css'
 import { LiveCard } from './LiveCard'
 import { blueprintPointer, drawBlueprint } from './heroBlueprint'
+import { depthPortrait } from './heroDepth'
 import styles from './Hero.module.css'
 
 type Props = { dict: Pick<Dictionary, 'hero' | 'facts'> }
@@ -45,6 +46,8 @@ export function Hero({ dict }: Props) {
   const tok = useRef<HTMLSpanElement>(null)
   const grid = useRef<HTMLDivElement>(null)
   const log = useRef<HTMLDivElement>(null)
+  const photo = useRef<HTMLImageElement>(null)
+  const depth = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
     const html = document.documentElement
@@ -149,8 +152,19 @@ export function Hero({ dict }: Props) {
       if (html.classList.contains('loading')) runIntro()
     })
 
+    // 3D portrait: starts once next/image has the photo
+    let stopDepth = () => {}
+    const img = photo.current!
+    const startDepth = () => {
+      if (alive) stopDepth = depthPortrait({ por: por.current!, img, canvas: depth.current! })
+    }
+    if (img.complete && img.naturalWidth) startDepth()
+    else img.addEventListener('load', startDepth, { once: true })
+
     return () => {
       alive = false
+      img.removeEventListener('load', startDepth)
+      stopDepth()
       stopLog()
       stopTilt()
       cancelAnimationFrame(raf)
@@ -176,6 +190,7 @@ export function Hero({ dict }: Props) {
           <div ref={win} className={styles.win} aria-hidden="true" data-tag="<Card />" data-dark="">
             <div ref={por} className={styles.por}>
               <Image
+                ref={photo}
                 src={heroImg}
                 alt={hero.photoAlt}
                 fill
@@ -184,6 +199,7 @@ export function Hero({ dict }: Props) {
                 fetchPriority="high"
                 placeholder="blur"
               />
+              <canvas ref={depth} className={styles.depth} aria-hidden="true" />
               {callouts.map((c, i) => (
                 <div
                   key={c.label}
