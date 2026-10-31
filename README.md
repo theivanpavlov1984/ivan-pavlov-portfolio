@@ -1,13 +1,13 @@
 # Ivan Pavlov — Portfolio
 
-Awwwards-style portfolio of Ivan Pavlov, Senior Product Designer.
+Portfolio of Ivan Pavlov, Senior Product Designer & Design Engineer.
 
-- Single self-contained `index.html` (GSAP + ScrollTrigger, canvas flow-field, EN/RU)
-- No build step, no dependencies — pure static
+- Next.js 16 + TypeScript (App Router, CSS Modules)
+- EN/RU at `/en` and `/ru`, prerendered as static pages
 - Deployed on Vercel
 
-## Local preview
-Just open `index.html` in a browser, or:
+## Local development
 ```bash
-npx serve .
+npm install
+npm run dev
 ```
