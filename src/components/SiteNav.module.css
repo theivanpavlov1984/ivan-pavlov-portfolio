@@ -252,6 +252,7 @@
     opacity 0.6s;
 }
 
-:global(html[data-hero-dark='true']) .top:not([data-open='true']) {
+:global(html[data-hero-dark='true']) .top:not([data-open='true']),
+:global(html[data-work-dark='true']) .top:not([data-open='true']) {
   color: var(--bone);
 }

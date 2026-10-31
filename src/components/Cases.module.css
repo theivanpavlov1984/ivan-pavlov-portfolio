@@ -1,0 +1,211 @@
+.work {
+  background: var(--ink);
+  color: var(--bone);
+  position: relative;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 96px 24px 32px;
+}
+
+.title {
+  font-size: clamp(40px, 7vw, 120px);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+/* each case gets 90vh of scroll while the list stays pinned */
+.cases {
+  height: calc(var(--n) * 90vh);
+}
+
+.stick {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 24px;
+}
+
+.case {
+  border-top: 1px solid rgba(236, 230, 218, 0.18);
+}
+
+.case:last-child {
+  border-bottom: 1px solid rgba(236, 230, 218, 0.18);
+}
+
+.bar {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  align-items: baseline;
+  padding: 14px 0;
+  gap: 16px;
+}
+
+.name {
+  font-size: clamp(24px, 3.6vw, 56px);
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: rgba(236, 230, 218, 0.35);
+  transition: color 0.4s;
+}
+
+.case[data-on='true'] .name {
+  color: var(--ember);
+}
+
+.body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.7s var(--ease-out);
+}
+
+.case[data-on='true'] .body {
+  grid-template-rows: 1fr;
+}
+
+.body > div {
+  overflow: hidden;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 40px;
+  padding: 6px 0 26px 72px;
+}
+
+.line {
+  font-size: clamp(18px, 1.7vw, 26px);
+  line-height: 1.2;
+  font-weight: 500;
+  max-width: 22em;
+}
+
+.line s {
+  color: rgba(236, 230, 218, 0.4);
+  text-decoration-color: var(--ember);
+  text-decoration-thickness: 2px;
+}
+
+.nums {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.nums b {
+  display: block;
+  font-size: clamp(28px, 3.4vw, 52px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.nums span {
+  display: block;
+  margin-top: 8px;
+  color: rgba(236, 230, 218, 0.6);
+}
+
+/* ---------- case visual (placeholders until real media) ---------- */
+.visual {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--bone);
+  color: var(--ink);
+}
+
+.visual[data-tone='ember'] {
+  background: var(--ember);
+}
+
+.visual[data-tone='bone'] {
+  background: var(--bone-2);
+}
+
+.visual[data-tone='dark'] {
+  background: #2a2722;
+}
+
+/* scratch: the system under the legacy layer */
+.sys {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 8px;
+  padding: 14px;
+}
+
+.sys div {
+  border-radius: 8px;
+  background: var(--bone-2);
+  display: flex;
+  align-items: flex-end;
+  padding: 8px;
+  font-family: var(--mono);
+  font-size: 10px;
+}
+
+.sys div:nth-child(3n + 1) {
+  background: var(--ember);
+}
+
+.sys div:nth-child(5) {
+  grid-column: span 2;
+  background: var(--ink);
+  color: var(--bone);
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.hint {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  color: var(--bone);
+  pointer-events: none;
+  mix-blend-mode: difference;
+}
+
+@media (max-width: 760px) {
+  .grid {
+    grid-template-columns: 1fr;
+    padding-left: 0;
+    gap: 20px;
+  }
+
+  .bar {
+    grid-template-columns: 40px 1fr;
+  }
+
+  .bar .mono:last-child {
+    display: none;
+  }
+
+  .visual {
+    display: none;
+  }
+}

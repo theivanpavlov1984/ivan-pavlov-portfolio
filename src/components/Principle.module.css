@@ -1,0 +1,37 @@
+.principle {
+  padding: 0 24px 22vh;
+}
+
+.principle article {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: end;
+  border-top: 1px solid var(--ink);
+  padding-top: 16px;
+}
+
+.principle .mono {
+  grid-column: 1 / -1;
+}
+
+.principle h3 {
+  font-size: clamp(32px, 4.4vw, 72px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-top: 24px;
+}
+
+.principle p {
+  font-size: clamp(16px, 1.4vw, 20px);
+  line-height: 1.4;
+  max-width: 24em;
+  color: rgba(13, 12, 10, 0.7);
+}
+
+@media (max-width: 760px) {
+  .principle article {
+    grid-template-columns: 1fr;
+  }
+}

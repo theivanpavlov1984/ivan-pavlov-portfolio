@@ -1,0 +1,31 @@
+.word {
+  white-space: nowrap;
+}
+
+/* top, not transform: keeps kerning and avoids a layer per letter */
+.ch {
+  position: relative;
+  top: 20px;
+  opacity: 0;
+  filter: blur(16px);
+  transition:
+    opacity 1s cubic-bezier(0.215, 0.61, 0.355, 1),
+    filter 1s cubic-bezier(0.215, 0.61, 0.355, 1),
+    top 1s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition-delay: calc(var(--i) * 0.03s);
+}
+
+.heading[data-in='true'] .ch {
+  top: 0;
+  opacity: 1;
+  filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ch {
+    top: 0;
+    opacity: 1;
+    filter: none;
+    transition: none;
+  }
+}

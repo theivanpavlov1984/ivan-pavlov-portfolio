@@ -60,5 +60,111 @@
         "DS consulting"
       ]
     }
-  ]
+  ],
+  "about": {
+    "label": "(01) — About",
+    "text": "Hi, I'm Ivan — a product designer who opens the code editor{code} as often as Figma. For 10+ years I've designed the unglamorous stuff: [enterprise suites](0), [transport apps](1){ticket}, [trading desks](3){spark} and the [design systems](2){toggle} underneath them. I like complexity that ends up feeling obvious{line}. Today I prototype in React, build with AI and ship my own small products — the best way to understand a handoff is to stand on both sides of it.",
+    "workedWith": "(Worked with)",
+    "photoAlt": "Ivan Pavlov"
+  },
+  "principle": {
+    "label": "Principle",
+    "title": "I speak code",
+    "text": "I prototype in React and review the front-end. Fewer revisions, cleaner handoff."
+  },
+  "work": {
+    "title": "Selected work",
+    "meta": "(02) — 2017—2026",
+    "eraseHint": "Erase the legacy →",
+    "cases": [
+      {
+        "id": "01",
+        "name": "Transneft",
+        "meta": "Enterprise · 2023—26",
+        "before": "Three internal products, three UI dialects",
+        "after": "one design system the whole suite ships on.",
+        "nums": [
+          {
+            "value": "3",
+            "label": "products"
+          },
+          {
+            "value": "15K",
+            "label": "MAU"
+          },
+          {
+            "value": "50+",
+            "label": "DS components"
+          }
+        ],
+        "visual": "scratch"
+      },
+      {
+        "id": "02",
+        "name": "Sber Troika",
+        "meta": "Mobility · 2023",
+        "before": "Nothing",
+        "after": "a transport app 1.5M people open every day.",
+        "nums": [
+          {
+            "value": "1.5M",
+            "label": "MAU"
+          },
+          {
+            "value": "iOS",
+            "label": "+ Android"
+          },
+          {
+            "value": "0→1",
+            "label": "zero-to-one"
+          }
+        ],
+        "visual": "ember"
+      },
+      {
+        "id": "03",
+        "name": "EPAM UUI",
+        "meta": "Design system · 2021—23",
+        "before": "Hard-coded colours in every product",
+        "after": "tokens, variables and 4 themes across 20+ products.",
+        "nums": [
+          {
+            "value": "20+",
+            "label": "products"
+          },
+          {
+            "value": "4",
+            "label": "themes"
+          },
+          {
+            "value": "50K",
+            "label": "users"
+          }
+        ],
+        "visual": "bone"
+      },
+      {
+        "id": "04",
+        "name": "Nominex / Marsbase",
+        "meta": "Crypto · 2021",
+        "before": "Zero",
+        "after": "an exchange, DEX and OTC desk with one shared UI kit.",
+        "nums": [
+          {
+            "value": "250K",
+            "label": "MAU"
+          },
+          {
+            "value": "3",
+            "label": "platforms"
+          },
+          {
+            "value": "0→1",
+            "label": "zero-to-one"
+          }
+        ],
+        "visual": "dark"
+      }
+    ]
+  }
 }
