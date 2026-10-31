@@ -36,7 +36,7 @@
 
 .ch {
   display: inline-block;
-  transition: transform 0.9s var(--ease-out) calc(5s + var(--i) * 0.07s);
+  transition: transform 0.9s var(--ease-out) calc(4s + var(--i) * 0.07s);
 }
 
 .slot {
@@ -58,7 +58,7 @@
   will-change: width, height, transform;
   z-index: 2;
   clip-path: inset(0 0 0 0);
-  transition: clip-path 1s var(--ease-out) 5.5s;
+  transition: clip-path 1s var(--ease-out) 4.5s;
 }
 
 /* portrait: no will-change here, or the browser upscales a cached bitmap (blurry) */

@@ -1,4 +1,4 @@
-// Blueprint intro (≈7s): the hero's own layout guides are drawn first, a boot log prints, then the hero assembles on them.
+// Blueprint intro (≈6s): the hero's own layout guides are drawn first, a boot log prints, then the hero assembles on them.
 // Guides are measured from the real layout (margins, columns, name cap/baseline, circle axis), so the labels tell the truth.
 
 type Parts = { stick: HTMLElement; name: HTMLElement; slot: HTMLElement; grid: HTMLElement; log: HTMLElement }
@@ -9,7 +9,7 @@ const bootLog = ['loading design tokens', 'compiling 10+ years', 'aligning to 4p
 const pad = (s: string, len = 28) => s + ' ' + '.'.repeat(Math.max(2, len - s.length)) + ' '
 
 // timeline, seconds from start
-export const T = { vStep: 0.26, hStart: 1.25, hStep: 0.25, nodes: 2.35, labels: 2.6, log: 2.0, logStep: 1.2 }
+export const T = { vStep: 0.26, hStart: 1.25, hStep: 0.25, nodes: 2.35, labels: 2.6, log: 2.0, logStep: 2.6 / 3 } // log prints over 2.6s
 
 export function drawBlueprint({ stick, name, slot, grid, log }: Parts, css: Classes) {
   const box = stick.getBoundingClientRect()

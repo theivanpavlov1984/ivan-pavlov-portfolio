@@ -104,7 +104,7 @@ export function Hero({ dict }: Props) {
     addEventListener('scroll', schedule, { passive: true })
     addEventListener('resize', fitName)
 
-    // intro (≈7s, once per visit): blueprint guides draw → letters land on the baseline → circle opens at the axis
+    // intro (≈6s, once per visit): blueprint guides draw → letters land on the baseline → circle opens at the axis
     let alive = true
     let stopLog = () => {}
     let stopTilt = () => {}
@@ -124,7 +124,7 @@ export function Hero({ dict }: Props) {
       )
       stopTilt = blueprintPointer(grid.current!, stick.current!, bpCss)
       requestAnimationFrame(() => requestAnimationFrame(() => html.classList.remove('boot-pre')))
-      const t0 = performance.now() + 5000, dur = 1600
+      const t0 = performance.now() + 4000, dur = 1600
       const tick = (now: number) => {
         if (!alive) return
         const q = clamp((now - t0) / dur), k = 1 - Math.pow(1 - q, 3)
