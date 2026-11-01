@@ -12,7 +12,6 @@ import s05 from '@/assets/orbit/shot_05.jpg'
 import s06 from '@/assets/orbit/shot_06.jpg'
 import s07 from '@/assets/orbit/shot_07.jpg'
 import s08 from '@/assets/orbit/shot_08.jpg'
-import s09 from '@/assets/orbit/shot_09.jpg'
 import styles from './Orbit.module.css'
 
 type Props = { dict: Pick<Dictionary, 'orbit'> }
@@ -21,13 +20,12 @@ type Props = { dict: Pick<Dictionary, 'orbit'> }
 const cards: [StaticImageData, string][] = [
   [s01, 'Mavfarm · feed'],
   [s02, 'Nominex · home'],
-  [s03, 'Mars · OTC desk'],
-  [s04, 'Mavfarm · news'],
-  [s05, 'Nominex · trade'],
-  [s06, 'Gold & Diamonds'],
-  [s07, 'Mavfarm · music map'],
-  [s08, 'Nominex · launchpools'],
-  [s09, 'Mavfarm · news map'],
+  [s03, 'Mavfarm · news'],
+  [s04, 'Nominex · trade'],
+  [s05, 'Gold & Diamonds'],
+  [s06, 'Mavfarm · music map'],
+  [s07, 'Nominex · launchpools'],
+  [s08, 'Mavfarm · news map'],
 ]
 
 const STAGGER = 0.07 // each card starts this much later (share of its own path)
