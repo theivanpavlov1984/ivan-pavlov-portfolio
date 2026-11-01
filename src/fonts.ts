@@ -33,7 +33,7 @@ export const serif = PT_Serif({
   display: 'swap',
 })
 
-// handwritten "Hey, I'm" in the logo
+// handwritten "Hi, I'm" in the logo
 export const hand = Caveat({
   weight: '500',
   subsets: ['latin', 'cyrillic'],

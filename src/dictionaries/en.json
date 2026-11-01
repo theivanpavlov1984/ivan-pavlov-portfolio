@@ -4,7 +4,7 @@
     "description": "Senior Product Designer and Design Engineer. Design systems, enterprise and fintech products used by millions."
   },
   "header": {
-    "hey": "Hey, I'm",
+    "hey": "Hi, I'm",
     "first": "Ivan",
     "last": "Pavlov",
     "status": "Open for work",
@@ -97,7 +97,7 @@
             "label": "DS components"
           }
         ],
-        "visual": "scratch"
+        "visual": "photo"
       },
       {
         "id": "02",
@@ -119,7 +119,7 @@
             "label": "zero-to-one"
           }
         ],
-        "visual": "layers"
+        "visual": "photo"
       },
       {
         "id": "03",
@@ -141,21 +141,21 @@
             "label": "users"
           }
         ],
-        "visual": "bone"
+        "visual": "photo"
       },
       {
         "id": "04",
-        "name": "Nominex / Marsbase",
+        "name": "Nominex",
         "meta": "Crypto · 2021",
         "before": "Zero",
-        "after": "an exchange, DEX and OTC desk with one shared UI kit.",
+        "after": "an exchange and a DEX on one shared UI kit.",
         "nums": [
           {
             "value": "250K",
             "label": "MAU"
           },
           {
-            "value": "3",
+            "value": "2",
             "label": "platforms"
           },
           {
@@ -163,7 +163,29 @@
             "label": "zero-to-one"
           }
         ],
-        "visual": "dark"
+        "visual": "photo"
+      },
+      {
+        "id": "05",
+        "name": "Mavfarm",
+        "meta": "Mobile web",
+        "before": "A desktop-only experience",
+        "after": "a mobile version that won Awwwards and FWA.",
+        "nums": [
+          {
+            "value": "2",
+            "label": "awards"
+          },
+          {
+            "value": "FWA",
+            "label": "+ Awwwards"
+          },
+          {
+            "value": "Web",
+            "label": "mobile"
+          }
+        ],
+        "visual": "photo"
       }
     ]
   },

@@ -31,29 +31,38 @@
   aspect-ratio: var(--ar);
   margin: 0;
   translate: -50% -50%;
-  display: grid;
-  place-items: end start;
-  padding: 10px;
-  box-sizing: border-box;
-  border-radius: 6px;
-  background: #1f1d19;
-  border: 1px dashed rgba(236, 230, 218, 0.28);
-  color: rgba(236, 230, 218, 0.55);
-  font-size: 10px;
+  transform-style: preserve-3d;
   opacity: 0;
   will-change: transform, opacity;
 }
 
-.card[data-tone='bone'] {
-  background: var(--bone);
-  border-color: transparent;
-  color: rgba(13, 12, 10, 0.5);
+.shot,
+.back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  backface-visibility: hidden;
 }
 
-.card[data-tone='ember'] {
-  background: var(--ember);
-  border-color: transparent;
-  color: var(--ink);
+.shot {
+  object-fit: cover;
+  outline: 1px solid rgba(236, 230, 218, 0.14);
+  outline-offset: -1px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+.back {
+  display: grid;
+  place-items: end start;
+  padding: 10px;
+  box-sizing: border-box;
+  transform: rotateY(180deg);
+  background: #1f1d19;
+  border: 1px dashed rgba(236, 230, 218, 0.28);
+  color: rgba(236, 230, 218, 0.55);
+  font-size: 10px;
 }
 
 .phrase {
