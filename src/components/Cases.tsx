@@ -1,15 +1,30 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Image, { type StaticImageData } from 'next/image'
 import type { Dictionary } from '@/i18n-config'
 import type { CSSVars } from '@/types/css'
 import { RevealHeading } from './RevealHeading'
 import { CaseLayers } from './CaseLayers'
 import { Orbit } from './Orbit'
-import { Scratch } from './Scratch'
+import transneft from '@/assets/cases/transneft.jpg'
+import troika from '@/assets/cases/troika.jpg'
+import epamLight from '@/assets/cases/epam-light.jpg'
+import epamDark from '@/assets/cases/epam-dark.jpg'
+import nominex from '@/assets/cases/nominex.jpg'
+import mavfarm from '@/assets/cases/mavfarm.jpg'
 import styles from './Cases.module.css'
 
 type Props = { dict: Pick<Dictionary, 'work' | 'orbit'> }
+
+// case photos (visual: "photo"), by case id; a second one fades in on hover (EPAM UUI: light theme → dark)
+const photos: Record<string, [StaticImageData, StaticImageData?]> = {
+  '01': [transneft],
+  '02': [troika],
+  '03': [epamLight, epamDark],
+  '04': [nominex],
+  '05': [mavfarm],
+}
 
 // selected work: sticky accordion, the active case follows scroll progress (Pamidor) + "before → after" and 3 numbers (Mauricio)
 export function Cases({ dict }: Props) {
@@ -29,6 +44,7 @@ export function Cases({ dict }: Props) {
       setActive(i)
       // progress inside the active case drives its visual (written to the DOM, no re-render)
       c.style.setProperty('--e', String(Math.min(1, Math.max(0, (p * n - i - 0.12) / 0.55))))
+      c.style.setProperty('--t', String(Math.min(1, p * n - i))) // raw 0 → 1 through the case, for the photo zoom
       // dark section under the header → light header
       const r = section.current!.getBoundingClientRect()
       html.dataset.workDark = String(r.top < 60 && r.bottom > 60)
@@ -78,8 +94,13 @@ export function Cases({ dict }: Props) {
                         ))}
                       </div>
                     </div>
-                    {c.visual === 'scratch' ? (
-                      <Scratch hint={work.eraseHint} />
+                    {c.visual === 'photo' ? (
+                      <div className={`${styles.visual} ${styles.photo}`}>
+                        <Image src={photos[c.id][0]} alt={c.name} sizes="(max-width: 768px) 1px, 45vw" />
+                        {photos[c.id][1] ? (
+                          <Image src={photos[c.id][1]!} alt="" className={styles.alt} sizes="(max-width: 768px) 1px, 45vw" />
+                        ) : null}
+                      </div>
                     ) : c.visual === 'layers' ? (
                       <CaseLayers />
                     ) : (

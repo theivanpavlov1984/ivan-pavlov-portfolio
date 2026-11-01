@@ -97,7 +97,7 @@
             "label": "компонентов DS"
           }
         ],
-        "visual": "scratch"
+        "visual": "photo"
       },
       {
         "id": "02",
@@ -119,7 +119,7 @@
             "label": "zero-to-one"
           }
         ],
-        "visual": "layers"
+        "visual": "photo"
       },
       {
         "id": "03",
@@ -141,21 +141,21 @@
             "label": "пользователей"
           }
         ],
-        "visual": "bone"
+        "visual": "photo"
       },
       {
         "id": "04",
-        "name": "Nominex / Marsbase",
+        "name": "Nominex",
         "meta": "Crypto · 2021",
         "before": "С нуля",
-        "after": "биржа, DEX и OTC-деск на одном UI-ките.",
+        "after": "биржа и DEX на одном UI-ките.",
         "nums": [
           {
             "value": "250K",
             "label": "MAU"
           },
           {
-            "value": "3",
+            "value": "2",
             "label": "платформы"
           },
           {
@@ -163,7 +163,29 @@
             "label": "zero-to-one"
           }
         ],
-        "visual": "dark"
+        "visual": "photo"
+      },
+      {
+        "id": "05",
+        "name": "Mavfarm",
+        "meta": "Mobile web",
+        "before": "Опыт только для десктопа",
+        "after": "мобильная версия, которая взяла Awwwards и FWA.",
+        "nums": [
+          {
+            "value": "2",
+            "label": "награды"
+          },
+          {
+            "value": "FWA",
+            "label": "+ Awwwards"
+          },
+          {
+            "value": "Web",
+            "label": "мобильный"
+          }
+        ],
+        "visual": "photo"
       }
     ]
   },
