@@ -4,10 +4,12 @@ import { useEffect, useRef, useState } from 'react'
 import type { Dictionary } from '@/i18n-config'
 import type { CSSVars } from '@/types/css'
 import { RevealHeading } from './RevealHeading'
+import { CaseLayers } from './CaseLayers'
+import { Orbit } from './Orbit'
 import { Scratch } from './Scratch'
 import styles from './Cases.module.css'
 
-type Props = { dict: Pick<Dictionary, 'work'> }
+type Props = { dict: Pick<Dictionary, 'work' | 'orbit'> }
 
 // selected work: sticky accordion, the active case follows scroll progress (Pamidor) + "before → after" and 3 numbers (Mauricio)
 export function Cases({ dict }: Props) {
@@ -23,7 +25,10 @@ export function Cases({ dict }: Props) {
       const c = cases.current!, vh = innerHeight
       const p = Math.min(1, Math.max(0, -c.getBoundingClientRect().top / (c.offsetHeight - vh)))
       // setState with the same value is a no-op, so React re-renders only when the case changes
-      setActive(Math.min(work.cases.length - 1, Math.floor(p * work.cases.length)))
+      const n = work.cases.length, i = Math.min(n - 1, Math.floor(p * n))
+      setActive(i)
+      // progress inside the active case drives its visual (written to the DOM, no re-render)
+      c.style.setProperty('--e', String(Math.min(1, Math.max(0, (p * n - i - 0.12) / 0.55))))
       // dark section under the header → light header
       const r = section.current!.getBoundingClientRect()
       html.dataset.workDark = String(r.top < 60 && r.bottom > 60)
@@ -75,6 +80,8 @@ export function Cases({ dict }: Props) {
                     </div>
                     {c.visual === 'scratch' ? (
                       <Scratch hint={work.eraseHint} />
+                    ) : c.visual === 'layers' ? (
+                      <CaseLayers />
                     ) : (
                       <div className={styles.visual} data-tone={c.visual} />
                     )}
@@ -85,6 +92,8 @@ export function Cases({ dict }: Props) {
           ))}
         </div>
       </div>
+
+      <Orbit dict={dict} />
     </section>
   )
 }
