@@ -1,26 +1,36 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import Image, { type StaticImageData } from 'next/image'
 import type { Dictionary } from '@/i18n-config'
 import type { CSSVars } from '@/types/css'
+import s01 from '@/assets/orbit/shot_01.jpg'
+import s02 from '@/assets/orbit/shot_02.jpg'
+import s03 from '@/assets/orbit/shot_03.jpg'
+import s04 from '@/assets/orbit/shot_04.jpg'
+import s05 from '@/assets/orbit/shot_05.jpg'
+import s06 from '@/assets/orbit/shot_06.jpg'
+import s07 from '@/assets/orbit/shot_07.jpg'
+import s08 from '@/assets/orbit/shot_08.jpg'
+import s09 from '@/assets/orbit/shot_09.jpg'
 import styles from './Orbit.module.css'
 
 type Props = { dict: Pick<Dictionary, 'orbit'> }
 
-// placeholders until the real project shots: [label, aspect ratio, tone]
-const cards = [
-  ['shot_01', '16 / 10', 'dark'],
-  ['shot_02', '3 / 4', 'bone'],
-  ['shot_03', '16 / 10', 'dark'],
-  ['shot_04', '4 / 3', 'ember'],
-  ['shot_05', '16 / 10', 'dark'],
-  ['shot_06', '3 / 4', 'dark'],
-  ['shot_07', '16 / 9', 'bone'],
-  ['shot_08', '4 / 3', 'dark'],
-  ['shot_09', '16 / 10', 'ember'],
-] as const
+// interface shots from Figma (1280w, full pages cropped to the first screen), projects mixed for rhythm
+const cards: [StaticImageData, string][] = [
+  [s01, 'Mavfarm · feed'],
+  [s02, 'Nominex · home'],
+  [s03, 'Mars · OTC desk'],
+  [s04, 'Mavfarm · news'],
+  [s05, 'Nominex · trade'],
+  [s06, 'Gold & Diamonds'],
+  [s07, 'Mavfarm · music map'],
+  [s08, 'Nominex · launchpools'],
+  [s09, 'Mavfarm · news map'],
+]
 
-const STAGGER = 0.09 // each card starts this much later (share of its own path)
+const STAGGER = 0.07 // each card starts this much later (share of its own path)
 const RANGE = 1 + STAGGER * (cards.length - 1)
 
 const clamp = (v: number) => Math.min(1, Math.max(0, v))
@@ -110,9 +120,13 @@ export function Orbit({ dict }: Props) {
     <section ref={section} className={styles.orbit} aria-label={orbit.label}>
       <div className={styles.pin}>
         <span className={`${styles.count} mono`}>{orbit.count}</span>
-        {cards.map(([label, ratio, tone]) => (
-          <div key={label} data-card="" data-tone={tone} className={styles.card} style={{ '--ar': ratio } as CSSVars}>
-            <span className="mono">{label}</span>
+        {cards.map(([img, label], i) => (
+          <div key={i} data-card="" className={styles.card} style={{ '--ar': `${img.width} / ${img.height}` } as CSSVars}>
+            <Image src={img} alt={label} className={styles.shot} sizes="(max-width: 1250px) 150px, (max-width: 2500px) 12vw, 300px" />
+            {/* the far side of the turn shows the card's back, not a mirrored screen */}
+            <span className={`${styles.back} mono`} aria-hidden="true">
+              {label}
+            </span>
           </div>
         ))}
         <p ref={phrase} className={styles.phrase}>
