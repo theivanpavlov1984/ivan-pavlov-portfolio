@@ -168,21 +168,21 @@
       {
         "id": "05",
         "name": "Mavfarm",
-        "meta": "Mobile web",
+        "meta": "Mobile · 2020",
         "before": "A desktop-only experience",
-        "after": "a mobile version that won Awwwards and FWA.",
+        "after": "a mobile version that won Awwwards Site of the Day and FWA of the Day.",
         "nums": [
           {
             "value": "2",
             "label": "awards"
           },
           {
-            "value": "FWA",
-            "label": "+ Awwwards"
+            "value": "SOTD",
+            "label": "Awwwards"
           },
           {
-            "value": "Web",
-            "label": "mobile"
+            "value": "FOTD",
+            "label": "FWA"
           }
         ],
         "visual": "photo"
@@ -191,7 +191,7 @@
   },
   "orbit": {
     "label": "Work in motion",
-    "count": "(09)",
+    "count": "(08)",
     "before": "Every project starts as chaos and ends as a ",
     "em": "system",
     "after": " others can build on."

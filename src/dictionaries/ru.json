@@ -168,21 +168,21 @@
       {
         "id": "05",
         "name": "Mavfarm",
-        "meta": "Mobile web",
+        "meta": "Mobile · 2020",
         "before": "Опыт только для десктопа",
-        "after": "мобильная версия, которая взяла Awwwards и FWA.",
+        "after": "мобильная версия, которая взяла Awwwards Site of the Day и FWA of the Day.",
         "nums": [
           {
             "value": "2",
             "label": "награды"
           },
           {
-            "value": "FWA",
-            "label": "+ Awwwards"
+            "value": "SOTD",
+            "label": "Awwwards"
           },
           {
-            "value": "Web",
-            "label": "мобильный"
+            "value": "FOTD",
+            "label": "FWA"
           }
         ],
         "visual": "photo"
@@ -191,7 +191,7 @@
   },
   "orbit": {
     "label": "Работы в движении",
-    "count": "(09)",
+    "count": "(08)",
     "before": "Каждый проект начинается с хаоса, а заканчивается ",
     "em": "системой",
     "after": ", на которой строят другие."
