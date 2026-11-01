@@ -128,7 +128,8 @@
   inset: 0;
   z-index: 35;
   overflow: hidden;
-  background: var(--bone);
+  background: var(--ink);
+  color: var(--bone);
   clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
   visibility: hidden;
   transition:
@@ -222,7 +223,7 @@
 .rows {
   max-width: 760px;
   margin-inline: auto;
-  border-top: 1px solid var(--ink);
+  border-top: 1px solid var(--bone);
 }
 
 .rows li,
@@ -234,7 +235,7 @@
 }
 
 .rows li {
-  border-bottom: 1px solid var(--grey);
+  border-bottom: 1px solid rgba(236, 230, 218, 0.18);
 }
 
 .rows li > a {
@@ -290,7 +291,8 @@
 }
 
 :global(html[data-hero-dark='true']) .top:not([data-open='true']),
-:global(html[data-work-dark='true']) .top:not([data-open='true']) {
+:global(html[data-work-dark='true']) .top:not([data-open='true']),
+.top[data-open='true'] {
   color: var(--bone);
 }
 

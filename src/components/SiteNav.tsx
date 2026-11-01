@@ -81,7 +81,7 @@ export function SiteNav({ lang, dict }: Props) {
       </header>
 
       {/* menu turns over like a book page (Studio Namma): a slanted edge sweeps down while the page straightens */}
-      <div ref={menuRef} id="menu" className={styles.menu} data-open={open} aria-hidden={!open}>
+      <div ref={menuRef} id="menu" className={styles.menu} data-open={open} data-dark="" aria-hidden={!open}>
         <div className={styles.page}>
           <nav className={styles.inner} onClick={(e) => (e.target as HTMLElement).closest('a') && close()}>
             {items.map((item, i) => (
