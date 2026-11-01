@@ -2,15 +2,13 @@ import { NextResponse, type NextRequest } from 'next/server'
 
 const locales = ['en', 'ru']
 
-// "/" and other locale-less paths go to /ru for Russian-speaking browsers, /en for everyone else
+// "/" and other locale-less paths go to /en; Russian is one click away in the header
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
   const hasLocale = locales.some((l) => pathname === `/${l}` || pathname.startsWith(`/${l}/`))
   if (hasLocale) return
 
-  const accept = request.headers.get('accept-language') ?? ''
-  const locale = /^ru\b|,\s*ru\b/i.test(accept) ? 'ru' : 'en'
-  request.nextUrl.pathname = `/${locale}${pathname === '/' ? '' : pathname}`
+  request.nextUrl.pathname = `/en${pathname === '/' ? '' : pathname}`
   return NextResponse.redirect(request.nextUrl)
 }
 

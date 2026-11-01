@@ -119,7 +119,7 @@
             "label": "zero-to-one"
           }
         ],
-        "visual": "ember"
+        "visual": "layers"
       },
       {
         "id": "03",
@@ -166,6 +166,13 @@
         "visual": "dark"
       }
     ]
+  },
+  "orbit": {
+    "label": "Work in motion",
+    "count": "(09)",
+    "before": "Every project starts as chaos and ends as a ",
+    "em": "system",
+    "after": " others can build on."
   },
   "reviews": {
     "label": "(03) — Reviews",
