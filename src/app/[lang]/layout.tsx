@@ -7,6 +7,10 @@ import '../globals.css'
 // intro once per visit: set classes before first paint so the hero never flashes
 const introScript = `if(!matchMedia('(prefers-reduced-motion: reduce)').matches){var s=null;try{s=sessionStorage.getItem('intro')}catch(e){}if(!s)document.documentElement.classList.add('boot-pre','loading')}`
 
+// production address; Vercel sets VERCEL_PROJECT_PRODUCTION_URL (follows a custom domain once it's added)
+const SITE = `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL ?? 'ivanpavlov.vercel.app'}`
+const OG_IMAGE = '/opengraph-image.png'
+
 // /en and /ru are prerendered at build time; any other first segment is a 404
 export const dynamicParams = false
 
@@ -19,9 +23,23 @@ export async function generateMetadata({ params }: LayoutProps<'/[lang]'>): Prom
   if (!hasLocale(lang)) return {}
   const { meta } = await getDictionary(lang)
   return {
+    // absolute base for the og:image and og:url links (LinkedIn, Telegram and co. need full URLs)
+    metadataBase: new URL(SITE),
     title: meta.title,
     description: meta.description,
     alternates: { languages: { en: '/en', ru: '/ru' } },
+    // the preview card: the hero, 1200×630 @2x, served from app/opengraph-image.png. Linked by hand, because
+    // the root layout lives in [lang] and a metadata file there would get a /-/ path that 404s in production
+    openGraph: {
+      images: [{ url: OG_IMAGE, width: 2400, height: 1260, alt: meta.title }],
+      type: 'website',
+      url: `/${lang}`,
+      siteName: 'Ivan Pavlov',
+      title: meta.title,
+      description: meta.description,
+      locale: lang === 'ru' ? 'ru_RU' : 'en_US',
+    },
+    twitter: { card: 'summary_large_image', title: meta.title, description: meta.description, images: [OG_IMAGE] },
   }
 }
 
