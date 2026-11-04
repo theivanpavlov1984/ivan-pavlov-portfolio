@@ -447,14 +447,15 @@
   }
 
   .stick {
-    padding: 0 16px;
+    padding: 72px 16px 16px;
   }
 
   .bar :global(.mono):last-child {
     display: none;
   }
 
+  /* phones: the photo goes under the numbers and takes what height is left on the screen */
   .visual {
-    display: none;
+    max-height: max(120px, calc(100svh - 560px));
   }
 }

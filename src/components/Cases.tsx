@@ -96,9 +96,9 @@ export function Cases({ dict }: Props) {
                     </div>
                     {c.visual === 'photo' ? (
                       <div className={`${styles.visual} ${styles.photo}`}>
-                        <Image src={photos[c.id][0]} alt={c.name} sizes="(max-width: 768px) 1px, 45vw" />
+                        <Image src={photos[c.id][0]} alt={c.name} sizes="(max-width: 760px) 100vw, 45vw" />
                         {photos[c.id][1] ? (
-                          <Image src={photos[c.id][1]!} alt="" className={styles.alt} sizes="(max-width: 768px) 1px, 45vw" />
+                          <Image src={photos[c.id][1]!} alt="" className={styles.alt} sizes="(max-width: 760px) 100vw, 45vw" />
                         ) : null}
                       </div>
                     ) : c.visual === 'layers' ? (
