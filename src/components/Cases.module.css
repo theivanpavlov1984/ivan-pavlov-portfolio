@@ -446,16 +446,33 @@
     gap: 12px;
   }
 
+  /* phones: no pinned accordion (five bars leave no room for a photo), every case is open in a plain list */
+  .cases {
+    height: auto;
+  }
+
   .stick {
-    padding: 72px 16px 16px;
+    position: static;
+    height: auto;
+    padding: 0 16px 48px;
+  }
+
+  .body,
+  .case[data-on='true'] .body {
+    grid-template-rows: 1fr;
+  }
+
+  .name,
+  .case[data-on='true'] .name {
+    color: var(--bone);
   }
 
   .bar :global(.mono):last-child {
     display: none;
   }
 
-  /* phones: the photo goes under the numbers and takes what height is left on the screen */
+  /* the photo goes under the numbers at the full width of the list */
   .visual {
-    max-height: max(120px, calc(100svh - 560px));
+    max-height: none;
   }
 }

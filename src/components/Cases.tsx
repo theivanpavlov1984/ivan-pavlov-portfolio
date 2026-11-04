@@ -26,7 +26,8 @@ const photos: Record<string, [StaticImageData, StaticImageData?]> = {
   '05': [mavfarm],
 }
 
-// selected work: sticky accordion, the active case follows scroll progress (Pamidor) + "before → after" and 3 numbers (Mauricio)
+// selected work: sticky accordion, the active case follows scroll progress (Pamidor) + "before → after" and 3 numbers (Mauricio).
+// Phones get a plain list with every case open, so the photos can take the full width
 export function Cases({ dict }: Props) {
   const { work } = dict
   const section = useRef<HTMLElement>(null)
@@ -45,6 +46,12 @@ export function Cases({ dict }: Props) {
       // progress inside the active case drives its visual (written to the DOM, no re-render)
       c.style.setProperty('--e', String(Math.min(1, Math.max(0, (p * n - i - 0.12) / 0.55))))
       c.style.setProperty('--t', String(Math.min(1, p * n - i))) // raw 0 → 1 through the case, for the photo zoom
+      // phones show every case open in a plain list, so each photo zooms by its own pass through the screen
+      if (innerWidth <= 760)
+        c.querySelectorAll<HTMLElement>('[data-photo]').forEach((ph) => {
+          const b = ph.getBoundingClientRect()
+          ph.style.setProperty('--t', String(Math.min(1, Math.max(0, (vh - b.top) / (vh + b.height)))))
+        })
       // dark section under the header → light header
       const r = section.current!.getBoundingClientRect()
       html.dataset.workDark = String(r.top < 60 && r.bottom > 60)
@@ -95,7 +102,7 @@ export function Cases({ dict }: Props) {
                       </div>
                     </div>
                     {c.visual === 'photo' ? (
-                      <div className={`${styles.visual} ${styles.photo}`}>
+                      <div className={`${styles.visual} ${styles.photo}`} data-photo="">
                         <Image src={photos[c.id][0]} alt={c.name} sizes="(max-width: 760px) 100vw, 45vw" />
                         {photos[c.id][1] ? (
                           <Image src={photos[c.id][1]!} alt="" className={styles.alt} sizes="(max-width: 760px) 100vw, 45vw" />
