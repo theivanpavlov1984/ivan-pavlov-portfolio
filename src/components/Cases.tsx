@@ -26,7 +26,8 @@ const photos: Record<string, [StaticImageData, StaticImageData?]> = {
   '05': [mavfarm],
 }
 
-// selected work: sticky accordion, the active case follows scroll progress (Pamidor) + "before → after" and 3 numbers (Mauricio)
+// selected work: sticky accordion, the active case follows scroll progress (Pamidor) + "before → after" and 3 numbers (Mauricio).
+// Phones keep the accordion in a compact form, so the open case's photo can still take the full width
 export function Cases({ dict }: Props) {
   const { work } = dict
   const section = useRef<HTMLElement>(null)
@@ -96,9 +97,9 @@ export function Cases({ dict }: Props) {
                     </div>
                     {c.visual === 'photo' ? (
                       <div className={`${styles.visual} ${styles.photo}`}>
-                        <Image src={photos[c.id][0]} alt={c.name} sizes="(max-width: 768px) 1px, 45vw" />
+                        <Image src={photos[c.id][0]} alt={c.name} sizes="(max-width: 760px) 100vw, 45vw" />
                         {photos[c.id][1] ? (
-                          <Image src={photos[c.id][1]!} alt="" className={styles.alt} sizes="(max-width: 768px) 1px, 45vw" />
+                          <Image src={photos[c.id][1]!} alt="" className={styles.alt} sizes="(max-width: 760px) 100vw, 45vw" />
                         ) : null}
                       </div>
                     ) : c.visual === 'layers' ? (

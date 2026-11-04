@@ -433,11 +433,13 @@
   .grid {
     grid-template-columns: 1fr;
     padding-left: 0;
-    gap: 20px;
+    padding-bottom: 14px;
+    gap: 14px;
   }
 
   .bar {
     grid-template-columns: 40px 1fr;
+    padding: 10px 0;
   }
 
   .head {
@@ -446,15 +448,34 @@
     gap: 12px;
   }
 
+  /* phones: the same pinned accordion, tightened (bars, text, numbers) so the open case's photo keeps the full width */
   .stick {
-    padding: 0 16px;
+    padding: 64px 16px 12px;
+  }
+
+  .name {
+    font-size: 22px;
+  }
+
+  .line {
+    font-size: 16px;
+  }
+
+  .nums {
+    margin-top: 14px;
+  }
+
+  .nums b {
+    font-size: 24px;
   }
 
   .bar :global(.mono):last-child {
     display: none;
   }
 
+  /* the photo goes under the numbers at the full width; only very short screens trim its height */
   .visual {
-    display: none;
+    width: 100%; /* when the height is trimmed, the photo crops rather than narrows */
+    max-height: max(140px, calc(100svh - 250px - var(--n) * 42px));
   }
 }

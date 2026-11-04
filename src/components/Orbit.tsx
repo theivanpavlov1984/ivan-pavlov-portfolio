@@ -29,21 +29,22 @@ const cards: [StaticImageData, string][] = [
 ]
 
 const STAGGER = 0.07 // each card starts this much later (share of its own path)
-const RANGE = 1 + STAGGER * (cards.length - 1)
+const DEEP_STAGGER = 0.2 // phones: cards come out of the depth one after another, not in a crowd
+const range = (stagger: number) => 1 + stagger * (cards.length - 1)
 
 const clamp = (v: number) => Math.min(1, Math.max(0, v))
 
 // orbit gallery under Selected work (after Luke Baffait's circle gallery): while the section is pinned, cards fly in
 // from the left, make one turn around the phrase on a tilted ellipse and leave to the right; the phrase surfaces
-// word by word out of a blur. Desktop only; styles are written straight to the DOM, no re-renders.
+// word by word out of a blur. Phones have no room for the ellipse, so there the cards come out of the depth behind
+// the phrase and fly past it at you. Styles are written straight to the DOM, no re-renders.
 export function Orbit({ dict }: Props) {
   const { orbit } = dict
   const section = useRef<HTMLElement>(null)
   const phrase = useRef<HTMLParagraphElement>(null)
 
   useEffect(() => {
-    const desktop = matchMedia('(min-width: 769px)')
-    if (!desktop.matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const sec = section.current!
     const els = [...sec.querySelectorAll<HTMLElement>('[data-card]')]
     const words = [...phrase.current!.querySelectorAll<HTMLElement>('[data-word]')]
@@ -66,20 +67,36 @@ export function Orbit({ dict }: Props) {
       return { x: off * q, y: tilt, z: rz * (1 - q), ry: 360 }
     }
 
+    // phones: each card keeps its own lane and only travels in z, from far behind the phrase to past the screen;
+    // perspective alone opens it from a dot in the middle out to the edges. Lanes run above and below the phrase
+    // (it spans the whole width here), so the cards that come close never cover the text
+    const deep = (t: number, i: number, vw: number) => {
+      const side = i % 2 ? 1 : -1
+      const x = (((i * 0.618) % 1) - 0.5) * vw * 0.7
+      return {
+        x,
+        y: side * innerHeight * (0.24 + 0.06 * (Math.floor(i / 2) % 2)),
+        z: -5000 + t * 5800,
+        ry: (x / vw) * -24, // turned a little towards the centre
+      }
+    }
+
     let raf = 0
     const update = () => {
       raf = 0
       const r = sec.getBoundingClientRect()
       if (r.bottom < 0 || r.top > innerHeight) return
       const p = clamp(-r.top / (sec.offsetHeight - innerHeight))
+      const phone = innerWidth <= 768
+      const stagger = phone ? DEEP_STAGGER : STAGGER
 
       els.forEach((el, i) => {
-        const t = p * RANGE - i * STAGGER
+        const t = p * range(stagger) - i * stagger
         if (t <= 0 || t >= 1) {
           el.style.opacity = '0'
           return
         }
-        const { x, y, z, ry } = place(t, innerWidth)
+        const { x, y, z, ry } = phone ? deep(t, i, innerWidth) : place(t, innerWidth)
         el.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, ${z.toFixed(1)}px) rotateY(${ry.toFixed(1)}deg)`
         el.style.opacity = String(Math.min(1, t / 0.06, (1 - t) / 0.06))
         el.style.zIndex = String(Math.round(z + 600)) // the phrase sits at 600: cards behind it pass under the text

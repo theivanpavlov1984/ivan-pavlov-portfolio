@@ -85,7 +85,30 @@
 }
 
 /* phones: no orbit, just the phrase */
-@media (max-width: 768px), (prefers-reduced-motion: reduce) {
+/* phones: cards fly out of the depth (Orbit.tsx), so they are smaller and the pinned stretch is shorter */
+@media (max-width: 768px) {
+  .orbit {
+    height: 500vh;
+  }
+
+  .card {
+    width: 132px;
+  }
+
+  /* the phrase spans the whole width here, so the counter moves up out of its way */
+  .count {
+    left: 16px;
+    top: 96px;
+    translate: none;
+  }
+
+  .phrase {
+    padding: 0 16px;
+  }
+}
+
+/* reduced motion: no flight, just the phrase */
+@media (prefers-reduced-motion: reduce) {
   .orbit {
     height: auto;
     padding: 96px 16px;
