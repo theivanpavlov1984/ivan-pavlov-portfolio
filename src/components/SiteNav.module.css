@@ -83,14 +83,18 @@
   opacity: 0;
 }
 
-.logo:hover .name,
-.logo:hover .def {
-  opacity: 0;
-}
+/* only with a real pointer: a tap on a phone leaves :hover stuck, and the swap layers are hidden there,
+   so the name and status would vanish and leave "Hi, I'm" alone */
+@media (hover: hover) {
+  .logo:hover .name,
+  .logo:hover .def {
+    opacity: 0;
+  }
 
-.logo:hover .role,
-.logo:hover .alt {
-  opacity: 1;
+  .logo:hover .role,
+  .logo:hover .alt {
+    opacity: 1;
+  }
 }
 
 /* burger: two lines meet into an X */
