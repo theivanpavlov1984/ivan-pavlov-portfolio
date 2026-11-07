@@ -7,8 +7,8 @@ import '../globals.css'
 // intro once per visit: set classes before first paint so the hero never flashes
 const introScript = `if(!matchMedia('(prefers-reduced-motion: reduce)').matches){var s=null;try{s=sessionStorage.getItem('intro')}catch(e){}if(!s)document.documentElement.classList.add('boot-pre','loading')}`
 
-// production address; Vercel sets VERCEL_PROJECT_PRODUCTION_URL (follows a custom domain once it's added)
-const SITE = `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL ?? 'ivanpavlov.vercel.app'}`
+// production address, fixed: the env var follows whichever custom domain Vercel picks
+const SITE = 'https://theivanpavlov.com'
 const OG_IMAGE = '/opengraph-image.png'
 
 // /en and /ru are prerendered at build time; any other first segment is a 404
