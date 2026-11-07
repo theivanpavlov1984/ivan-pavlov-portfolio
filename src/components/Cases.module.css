@@ -161,9 +161,76 @@
   opacity: 1;
 }
 
+/* "visit site": an ember circle that pops out of the corner together with the colour; the arrow turns
+   from ↗ to → as it lands. The whole photo is the link, the circle only says so */
+.visit {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 4px;
+  width: clamp(96px, 8vw, 128px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--ember);
+  color: var(--ink);
+  text-align: center;
+  transform: scale(0) rotate(-45deg);
+  transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.visit .mono {
+  font-size: 11px;
+  line-height: 1.1;
+  max-width: 8ch;
+}
+
+.visit i {
+  font-style: normal;
+  font-size: clamp(22px, 1.8vw, 30px);
+  line-height: 1;
+  transition: transform 0.4s var(--ease-out) 0.1s;
+}
+
+.photo:hover .visit,
+.photo:focus-visible .visit {
+  transform: none;
+}
+
+.photo:hover .visit i {
+  transform: rotate(45deg);
+}
+
+.photo:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 4px;
+}
+
 @media (hover: none) {
   .photo img {
     filter: none;
+  }
+
+  /* touch: no hover to reveal it, so a smaller circle simply stays */
+  .visit {
+    width: 76px;
+    right: 12px;
+    bottom: 12px;
+    transform: none;
+  }
+
+  .visit .mono {
+    font-size: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visit,
+  .visit i {
+    transition: none;
   }
 }
 

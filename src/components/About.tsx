@@ -108,6 +108,9 @@ export function About({ dict }: Props) {
     const onScroll = () => {
       const s = section.current!, vh = innerHeight
       const p = Math.min(1, Math.max(0, (-s.getBoundingClientRect().top + vh * 0.3) / (s.offsetHeight - vh * 0.7)))
+      // the photo lies down straight and grows over the first 70% of the story, the signature is written from 15% to 70%
+      s.style.setProperty('--ph', Math.min(1, p / 0.7).toFixed(3))
+      s.style.setProperty('--sig', Math.min(1, Math.max(0, (p - 0.15) / 0.55)).toFixed(3))
       const front = p * (chars.length + crest)
       chars.forEach((c, i) => {
         const state = i < front - crest ? 'done' : i < front ? 'crest' : ''
@@ -138,7 +141,13 @@ export function About({ dict }: Props) {
         <p className="mono">{about.label}</p>
         <div className={styles.body}>
           <span className={styles.sticker} data-tag="<img>">
-            <Image src={photo} alt={about.photoAlt} sizes="220px" placeholder="blur" />
+            <span className={styles.frame}>
+              <Image src={photo} alt={about.photoAlt} sizes="260px" placeholder="blur" />
+            </span>
+            {/* written across the corner as you scroll (haoqi.design), the name is already in the alt */}
+            <span className={styles.sign} aria-hidden="true">
+              Ivan Pavlov
+            </span>
           </span>
           <p ref={text} className={styles.text}>
             {items.map((it, i) =>

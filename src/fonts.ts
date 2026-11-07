@@ -1,5 +1,5 @@
 import localFont from 'next/font/local'
-import { Caveat, IBM_Plex_Mono, PT_Serif } from 'next/font/google'
+import { Caveat, IBM_Plex_Mono, Mrs_Saint_Delafield, PT_Serif } from 'next/font/google'
 
 // TT Travels Next: licensed set, subset to Latin + Cyrillic (~37 KB per style)
 export const travels = localFont({
@@ -38,5 +38,13 @@ export const hand = Caveat({
   weight: '500',
   subsets: ['latin', 'cyrillic'],
   variable: '--font-hand',
+  display: 'swap',
+})
+
+// signature over the About photo; Latin only, one short string
+export const sign = Mrs_Saint_Delafield({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-sign',
   display: 'swap',
 })

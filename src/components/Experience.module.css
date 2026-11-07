@@ -1,0 +1,495 @@
+.experience {
+  padding: 18vh 24px 4vh;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 56px;
+  flex-wrap: wrap;
+}
+
+.title {
+  font-size: clamp(40px, 6vw, 104px);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-top: 18px;
+}
+
+/* two columns: disciplines on the left, work history on the right */
+.cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+.colLabel {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--ink);
+}
+
+/* ---------- list + floating card ---------- */
+.listBox {
+  --ease: cubic-bezier(0.76, 0, 0.24, 1);
+  position: relative;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list > li {
+  border-bottom: 1px solid var(--grey);
+  transition: opacity 0.4s var(--ease);
+}
+
+/* the active row stays, the rest dim (Studio Namma) */
+.listBox[data-active='true'] .list > li[data-on='false'] {
+  opacity: 0.28;
+}
+
+/* title rolls up to its twin (kstoimenov) */
+.roll {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  /* a little room for descenders, so the twin never peeks in */
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.roll > span {
+  display: block;
+  transition: transform 0.6s var(--ease);
+}
+
+.roll > span + span {
+  position: absolute;
+  inset: 0;
+  transform: translateY(105%);
+  color: var(--ember);
+}
+
+[data-on='true'] .roll > span:first-child {
+  transform: translateY(-105%);
+}
+
+[data-on='true'] .roll > span + span {
+  transform: none;
+}
+
+/* the card glides to the middle of the active row (--y) and folds away when nothing is active */
+.card {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 2;
+  width: var(--cw);
+  height: var(--ch);
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--ink);
+  color: var(--bone);
+  pointer-events: none;
+  transform: translateY(calc(var(--y, 0px) - 50%)) scale(0);
+  transition: transform 0.6s var(--ease);
+}
+
+.listBox[data-active='true'] .card {
+  transform: translateY(calc(var(--y, 0px) - 50%)) scale(1);
+}
+
+.listBox[data-kind='skills'] {
+  --cw: clamp(128px, 11vw, 176px);
+  --ch: var(--cw);
+}
+
+/* content swaps through a mask: the new one comes up from below, the old one leaves upwards (NBNZIA) */
+.layer {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  transform: translateY(101%);
+}
+
+.layer[data-s='in'] {
+  transform: none;
+  transition: transform 0.6s var(--ease);
+}
+
+.layer[data-s='out'] {
+  transform: translateY(-101%);
+  transition: transform 0.6s var(--ease);
+}
+
+/* ---------- what I do ---------- */
+.skill {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 16px;
+  padding: 22px 0;
+  /* the card covers the right edge of the row */
+  padding-right: calc(var(--cw) + 20px);
+}
+
+.num {
+  padding-top: 0.6em;
+  transition: color 0.3s;
+}
+
+.skill h3 {
+  font-size: clamp(24px, 2.4vw, 40px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.skill p {
+  margin-top: 10px;
+  max-width: 28em;
+  font-size: clamp(15px, 1.2vw, 18px);
+  line-height: 1.4;
+  color: rgba(13, 12, 10, 0.7);
+}
+
+.skill .tags {
+  font-size: 11px;
+  color: #b83700;
+}
+
+[data-on='true'] .num {
+  color: var(--ember);
+}
+
+@media (hover: hover) {
+  .job b {
+    transition: color 0.3s;
+  }
+
+  .job:hover b {
+    color: var(--ember);
+  }
+}
+
+/* ---------- where ---------- */
+.job {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  align-items: baseline;
+  gap: 4px 16px;
+  padding: 18px 0;
+}
+
+.years {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(13, 12, 10, 0.6);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #3ddc84;
+}
+
+.job b {
+  font-size: clamp(18px, 1.6vw, 26px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* role sits under the company, so long names never squeeze it */
+.role {
+  grid-column: 2;
+  color: rgba(13, 12, 10, 0.6);
+}
+
+/* ---------- mini interfaces: each loops while its layer is in ---------- */
+.scene {
+  --u: calc(var(--cw) / 100); /* 1% of the card: everything scales with it */
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: calc(var(--u) * 12);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: calc(var(--u) * 6);
+}
+
+.layer:not([data-s='in']) .scene * {
+  animation-play-state: paused;
+}
+
+.scene i {
+  display: block;
+  border-radius: calc(var(--u) * 3);
+}
+
+/* product design: blocks drop in one after another, hold, clear */
+.product i {
+  background: rgba(236, 230, 218, 0.22);
+  animation: build 3.2s var(--ease) infinite both;
+}
+
+.pHead {
+  width: 45%;
+  height: calc(var(--u) * 6);
+  animation-delay: 0s !important;
+}
+
+.pCard {
+  height: calc(var(--u) * 26);
+  background: var(--ember) !important;
+  animation-delay: 0.15s !important;
+}
+
+.pRow {
+  height: calc(var(--u) * 7);
+}
+
+.pRow:nth-of-type(3) {
+  animation-delay: 0.3s !important;
+}
+
+.pRow:nth-of-type(4) {
+  width: 80%;
+  animation-delay: 0.4s !important;
+}
+
+.pBtn {
+  height: calc(var(--u) * 11);
+  border-radius: 99px !important;
+  background: var(--bone) !important;
+  animation-delay: 0.55s !important;
+}
+
+@keyframes build {
+  0% {
+    opacity: 0;
+    transform: translateY(40%);
+  }
+  18%,
+  80% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+    transform: none;
+  }
+}
+
+/* design systems: the swatches and the button switch themes together */
+.sw {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: calc(var(--u) * 4);
+}
+
+.sw i {
+  aspect-ratio: 1;
+  animation: theme 3.6s steps(1) infinite;
+}
+
+.sw i:nth-child(1) {
+  --a: var(--ember);
+  --b: #3d5afe;
+  --c: #3ddc84;
+}
+
+.sw i:nth-child(2) {
+  --a: var(--bone);
+  --b: #e8ecff;
+  --c: #0f2a1d;
+}
+
+.sw i:nth-child(3) {
+  --a: #6b655b;
+  --b: #8c93b8;
+  --c: #2f7a55;
+}
+
+.sw i:nth-child(4) {
+  --a: #2a2722;
+  --b: #1a1f3d;
+  --c: #b6f5cf;
+}
+
+.tBtn {
+  --a: var(--ember);
+  --b: #3d5afe;
+  --c: #3ddc84;
+  display: grid;
+  place-items: center;
+  height: calc(var(--u) * 16);
+  border-radius: 99px;
+  font-size: calc(var(--u) * 9);
+  font-weight: 600;
+  color: var(--ink);
+  animation: theme 3.6s steps(1) infinite;
+}
+
+@keyframes theme {
+  0% {
+    background: var(--a);
+  }
+  33% {
+    background: var(--b);
+  }
+  66% {
+    background: var(--c);
+  }
+}
+
+/* design engineering: the JSX types itself, then the button renders under it */
+.code code,
+.ai code {
+  font-family: var(--mono);
+  font-size: calc(var(--u) * 8);
+  color: rgba(236, 230, 218, 0.85);
+  white-space: nowrap;
+}
+
+.code code span,
+.ai code span {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  border-right: 1px solid var(--ember);
+  animation: type 3.2s steps(18) infinite both;
+}
+
+.ai code span {
+  animation-timing-function: steps(13);
+}
+
+@keyframes type {
+  0% {
+    width: 0;
+  }
+  45%,
+  100% {
+    width: var(--w, 18ch);
+  }
+}
+
+.ai code span {
+  --w: 13ch;
+}
+
+.cBtn {
+  display: grid;
+  place-items: center;
+  height: calc(var(--u) * 16);
+  border-radius: 99px;
+  background: var(--ember);
+  color: var(--ink);
+  font-size: calc(var(--u) * 9);
+  font-weight: 600;
+  animation: pop 3.2s var(--ease) infinite both;
+}
+
+@keyframes pop {
+  0%,
+  48% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  60%,
+  92% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* AI workflow: after the prompt a dull block turns into a bold one */
+.aBlock {
+  height: calc(var(--u) * 34);
+  background: rgba(236, 230, 218, 0.18);
+  animation: glowup 3.2s var(--ease) infinite both;
+}
+
+@keyframes glowup {
+  0%,
+  48% {
+    background: rgba(236, 230, 218, 0.18);
+    transform: none;
+    border-radius: calc(var(--u) * 3);
+  }
+  62%,
+  92% {
+    background: var(--ember);
+    transform: rotate(-4deg) scale(1.06);
+    border-radius: calc(var(--u) * 12);
+  }
+  100% {
+    background: rgba(236, 230, 218, 0.18);
+  }
+}
+
+@media (max-width: 900px) {
+  .cols {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+@media (max-width: 760px) {
+  .experience {
+    padding: 14vh 16px 2vh;
+  }
+
+  .head {
+    margin-bottom: 36px;
+  }
+
+  .listBox[data-kind='skills'] {
+    --cw: 88px;
+  }
+
+  .skill {
+    grid-template-columns: 40px 1fr;
+    gap: 12px;
+    padding: 18px calc(var(--cw) + 12px) 18px 0;
+  }
+
+  .job {
+    grid-template-columns: 96px 1fr;
+    gap: 4px 12px;
+    padding: 14px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .layer,
+  .roll > span,
+  .list > li {
+    transition: none !important;
+  }
+
+  .scene *,
+  .scene i {
+    animation: none !important;
+  }
+
+  .code code span,
+  .ai code span {
+    width: var(--w, 18ch);
+  }
+}

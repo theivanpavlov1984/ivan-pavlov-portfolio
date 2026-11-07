@@ -116,37 +116,82 @@
   padding: 8px 20px 18px;
 }
 
-.full summary {
-  cursor: pointer;
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
   font-size: 11px;
   color: rgba(13, 12, 10, 0.6);
-  list-style: none;
-  padding: 6px 0;
+  transition: color 0.2s;
 }
 
-.full summary::-webkit-details-marker {
-  display: none;
-}
-
-.full summary::before {
-  content: '+ ';
-  color: var(--ember);
-}
-
-.full[open] summary::before {
-  content: '− ';
-}
-
-.full summary:hover {
+.toggle:hover {
   color: var(--ink);
 }
 
-.full p {
+/* the + turns a quarter-and-a-bit into × */
+.toggle i {
+  display: inline-block;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--ember);
+  transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.full[data-open='true'] .toggle i {
+  transform: rotate(135deg);
+}
+
+/* grid rows 0fr → 1fr animate the height to its natural size */
+.more {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.full[data-open='true'] .more {
+  grid-template-rows: 1fr;
+}
+
+.more > div {
+  overflow: hidden;
+}
+
+/* paragraphs: on open they rise in one by one after the height starts; on close they drop out at once, first */
+.more p {
   font-size: 15px;
   line-height: 1.55;
   color: rgba(13, 12, 10, 0.78);
   margin-top: 10px;
   max-width: 60ch;
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(6px);
+  transition:
+    opacity 0.25s,
+    transform 0.25s,
+    filter 0.25s;
+}
+
+.full[data-open='true'] .more p {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  transition:
+    opacity 0.6s cubic-bezier(0.215, 0.61, 0.355, 1),
+    transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1),
+    filter 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition-delay: calc(0.15s + var(--i) * 0.08s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toggle i,
+  .more,
+  .more p {
+    transition: none !important;
+  }
 }
 
 @media (max-width: 760px) {

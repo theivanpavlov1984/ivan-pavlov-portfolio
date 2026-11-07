@@ -1,0 +1,102 @@
+/* the frame takes its full size in the layout from the start and is scaled down from the top-left corner,
+   so growing never shifts the page below. --g (0 → 1) comes from Showreel.tsx */
+.reel {
+  --from: 0.24; /* starting scale: a ~320px thumbnail on a laptop screen */
+  --s: calc(var(--from) + (1 - var(--from)) * var(--g, 0));
+  padding: 6vh 24px 0;
+}
+
+.frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  max-height: calc(100vh - 48px);
+  overflow: hidden;
+  background: var(--ink);
+  transform: scale(var(--s));
+  transform-origin: 0 0;
+  /* the scale would shrink the corners too, so the radius is divided by it: 10px on screen at any size */
+  border-radius: calc(10px / var(--s));
+  will-change: transform;
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* the whole frame is the sound button; the caption sits at the bottom over a soft shade, counter-scaled so it
+   stays readable while the frame is small, but only down to 0.6 of the scale, so on a phone it never outgrows
+   the thumbnail */
+.over {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: 0;
+  border: 0;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  padding: calc(14px / max(var(--s), 0.6)) calc(16px / max(var(--s), 0.6));
+  white-space: nowrap;
+  background: none;
+  color: var(--bone);
+}
+
+.over::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 70%, rgba(13, 12, 10, 0.7));
+  pointer-events: none;
+}
+
+.over :global(.mono) {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: calc(8px / max(var(--s), 0.6));
+  font-size: calc(12px / max(var(--s), 0.6));
+}
+
+.over:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: -2px;
+}
+
+/* sound indicator: a hollow dot while muted, a filled ember dot with a soft pulse while the sound is on */
+.over i {
+  width: calc(8px / max(var(--s), 0.6));
+  aspect-ratio: 1;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.over i[data-on='true'] {
+  border-color: var(--ember);
+  background: var(--ember);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% {
+    box-shadow: 0 0 0 calc(5px / max(var(--s), 0.6)) rgba(255, 77, 0, 0.25);
+  }
+}
+
+@media (max-width: 760px) {
+  .reel {
+    --from: 0.5;
+    padding: 4vh 16px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .over i[data-on='true'] {
+    animation: none;
+  }
+}

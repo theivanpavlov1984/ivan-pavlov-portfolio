@@ -61,6 +61,12 @@
       ]
     }
   ],
+  "reel": {
+    "label": "(Showreel ’26)",
+    "soundOn": "Sound on",
+    "soundOff": "Sound off",
+    "tag": "<Showreel />"
+  },
   "about": {
     "label": "(01) — About",
     "text": "Hi, I'm Ivan — a product designer who opens the code editor{code} as often as Figma. For 10+ years I've designed the unglamorous stuff: [enterprise suites](0), [transport apps](1){ticket}, [trading desks](3){spark} and the [design systems](2){toggle} underneath them. I like complexity that ends up feeling obvious{line}. Today I prototype in React, build with AI and ship my own small products — the best way to understand a handoff is to stand on both sides of it.",
@@ -76,9 +82,11 @@
     "title": "Selected work",
     "meta": "(02) — 2017—2026",
     "eraseHint": "Erase the legacy →",
+    "visit": "Visit site",
     "cases": [
       {
         "id": "01",
+        "url": "https://xn--80akxamidgr5f.xn--p1ai",
         "name": "Transneft",
         "meta": "Enterprise · 2023—26",
         "before": "Three internal products, three UI dialects",
@@ -101,6 +109,7 @@
       },
       {
         "id": "02",
+        "url": "https://sbertroika.ru",
         "name": "Sber Troika",
         "meta": "Mobility · 2023",
         "before": "Nothing",
@@ -123,6 +132,7 @@
       },
       {
         "id": "03",
+        "url": "https://uui.epam.com",
         "name": "EPAM UUI",
         "meta": "Design system · 2021—23",
         "before": "Hard-coded colours in every product",
@@ -145,6 +155,7 @@
       },
       {
         "id": "04",
+        "url": "https://nomiswap.io",
         "name": "Nominex",
         "meta": "Crypto · 2021",
         "before": "Zero",
@@ -167,6 +178,7 @@
       },
       {
         "id": "05",
+        "url": "https://www.mav.farm",
         "name": "Mavfarm",
         "meta": "Mobile · 2020",
         "before": "A desktop-only experience",
@@ -196,8 +208,76 @@
     "em": "system",
     "after": " others can build on."
   },
+  "experience": {
+    "label": "(03) — Experience",
+    "titleBefore": "Ten years, ",
+    "titleEm": "both sides",
+    "meta": "Design · Code · 2017—2026",
+    "doLabel": "What I do",
+    "jobsLabel": "Where",
+    "now": "now",
+    "skills": [
+      {
+        "title": "Product design",
+        "text": "Research to release: flows, prototypes and UI for mobile, web and enterprise.",
+        "tags": "CJM · Usability tests · iOS / Android"
+      },
+      {
+        "title": "Design systems",
+        "text": "Tokens, theming and component libraries that whole product suites ship on.",
+        "tags": "Tokens · Variables · 50+ components"
+      },
+      {
+        "title": "Design engineering",
+        "text": "Prototypes in React and TypeScript, front-end review, handoff without guesswork.",
+        "tags": "React · TypeScript · Storybook"
+      },
+      {
+        "title": "AI workflow",
+        "text": "Claude Code, Cursor and Figma MCP to get from idea to production faster.",
+        "tags": "Claude Code · Cursor · Figma MCP"
+      }
+    ],
+    "jobs": [
+      {
+        "years": "2023 — now",
+        "company": "Transneft-Technologies",
+        "role": "Senior Product Designer"
+      },
+      {
+        "years": "2023",
+        "company": "SberTroika",
+        "role": "Key Designer"
+      },
+      {
+        "years": "2021 — 23",
+        "company": "EPAM Systems",
+        "role": "Senior UX Designer"
+      },
+      {
+        "years": "2021",
+        "company": "Marsbase",
+        "role": "Product Designer"
+      },
+      {
+        "years": "2019 — 21",
+        "company": "Nominex",
+        "role": "Product Designer"
+      },
+      {
+        "years": "2019 — 20",
+        "company": "Geex Arts",
+        "role": "Web Designer"
+      },
+      {
+        "years": "2017 — 19",
+        "company": "Oleg Chulakov Studio",
+        "role": "Product Designer"
+      }
+    ]
+  },
   "reviews": {
-    "label": "(03) — Reviews",
+    "label": "(04) — Reviews",
     "titleBefore": "Code review: ",
     "titleEm": "Ivan",
     "status": "Approved · 4 reviewers · LinkedIn",
@@ -208,7 +288,7 @@
     "showFull": "Show full review"
   },
   "footer": {
-    "label": "(04) — Contact",
+    "label": "(05) — Contact",
     "ctaBefore": "Your product deserves a ",
     "ctaEm": "system",
     "status": "Open to roles — Senior / Lead Product Designer · Design Systems",
