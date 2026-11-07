@@ -61,6 +61,12 @@
       ]
     }
   ],
+  "reel": {
+    "label": "(Шоурил ’26)",
+    "soundOn": "Со звуком",
+    "soundOff": "Без звука",
+    "tag": "<Showreel />"
+  },
   "about": {
     "label": "(01) — Обо мне",
     "text": "Привет, я Иван — продуктовый дизайнер, который открывает редактор кода{code} так же часто, как Figma. Больше 10 лет проектирую неброские вещи: [enterprise-системы](0), [транспортные приложения](1){ticket}, [торговые терминалы](3){spark} и [дизайн-системы](2){toggle} под ними. Люблю сложность, которая в итоге кажется очевидной{line}. Сейчас прототипирую на React, работаю с ИИ и делаю свои небольшие продукты — лучший способ понять передачу в разработку — побывать по обе её стороны.",
@@ -76,9 +82,11 @@
     "title": "Работы",
     "meta": "(02) — 2017—2026",
     "eraseHint": "Сотри легаси →",
+    "visit": "На сайт",
     "cases": [
       {
         "id": "01",
+        "url": "https://xn--80akxamidgr5f.xn--p1ai",
         "name": "Transneft",
         "meta": "Enterprise · 2023—26",
         "before": "Три продукта, три разных интерфейса",
@@ -101,6 +109,7 @@
       },
       {
         "id": "02",
+        "url": "https://sbertroika.ru",
         "name": "Sber Troika",
         "meta": "Mobility · 2023",
         "before": "Ничего",
@@ -123,6 +132,7 @@
       },
       {
         "id": "03",
+        "url": "https://uui.epam.com",
         "name": "EPAM UUI",
         "meta": "Design system · 2021—23",
         "before": "Цвета, зашитые в каждый продукт",
@@ -145,6 +155,7 @@
       },
       {
         "id": "04",
+        "url": "https://nomiswap.io",
         "name": "Nominex",
         "meta": "Crypto · 2021",
         "before": "С нуля",
@@ -167,6 +178,7 @@
       },
       {
         "id": "05",
+        "url": "https://www.mav.farm",
         "name": "Mavfarm",
         "meta": "Mobile · 2020",
         "before": "Опыт только для десктопа",
@@ -196,8 +208,76 @@
     "em": "системой",
     "after": ", на которой строят другие."
   },
+  "experience": {
+    "label": "(03) — Опыт",
+    "titleBefore": "Десять лет ",
+    "titleEm": "по обе стороны",
+    "meta": "Дизайн · Код · 2017—2026",
+    "doLabel": "Что делаю",
+    "jobsLabel": "Где",
+    "now": "сейчас",
+    "skills": [
+      {
+        "title": "Продуктовый дизайн",
+        "text": "От исследования до релиза: сценарии, прототипы и интерфейсы для мобайла, веба и enterprise.",
+        "tags": "CJM · Юзабилити-тесты · iOS / Android"
+      },
+      {
+        "title": "Дизайн-системы",
+        "text": "Токены, темизация и библиотеки компонентов, на которых работают целые линейки продуктов.",
+        "tags": "Токены · Переменные · 50+ компонентов"
+      },
+      {
+        "title": "Дизайн-инжиниринг",
+        "text": "Прототипы на React и TypeScript, ревью фронтенда, передача в разработку без догадок.",
+        "tags": "React · TypeScript · Storybook"
+      },
+      {
+        "title": "ИИ в процессе",
+        "text": "Claude Code, Cursor и Figma MCP, чтобы быстрее пройти путь от идеи до продакшна.",
+        "tags": "Claude Code · Cursor · Figma MCP"
+      }
+    ],
+    "jobs": [
+      {
+        "years": "2023 — сейчас",
+        "company": "Транснефть-Технологии",
+        "role": "Senior Product Designer"
+      },
+      {
+        "years": "2023",
+        "company": "СберТройка",
+        "role": "Key Designer"
+      },
+      {
+        "years": "2021 — 23",
+        "company": "EPAM Systems",
+        "role": "Senior UX Designer"
+      },
+      {
+        "years": "2021",
+        "company": "Marsbase",
+        "role": "Product Designer"
+      },
+      {
+        "years": "2019 — 21",
+        "company": "Nominex",
+        "role": "Product Designer"
+      },
+      {
+        "years": "2019 — 20",
+        "company": "Geex Arts",
+        "role": "Web Designer"
+      },
+      {
+        "years": "2017 — 19",
+        "company": "Студия Олега Чулакова",
+        "role": "Product Designer"
+      }
+    ]
+  },
   "reviews": {
-    "label": "(03) — Отзывы",
+    "label": "(04) — Отзывы",
     "titleBefore": "Ревью ",
     "titleEm": "пройдено",
     "status": "Одобрено · 4 ревьюера · LinkedIn",
@@ -208,7 +288,7 @@
     "showFull": "Полный отзыв"
   },
   "footer": {
-    "label": "(04) — Контакты",
+    "label": "(05) — Контакты",
     "ctaBefore": "Вашему продукту нужна ",
     "ctaEm": "система",
     "status": "Открыт к ролям — Senior / Lead Product Designer · дизайн-системы",

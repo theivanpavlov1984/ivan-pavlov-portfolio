@@ -30,6 +30,7 @@ const cards: [StaticImageData, string][] = [
 
 const STAGGER = 0.07 // each card starts this much later (share of its own path)
 const DEEP_STAGGER = 0.2 // phones: cards come out of the depth one after another, not in a crowd
+const LEAD = 0.85 // the flight starts once the section's top rises past this share of the screen height
 const range = (stagger: number) => 1 + stagger * (cards.length - 1)
 
 const clamp = (v: number) => Math.min(1, Math.max(0, v))
@@ -86,7 +87,10 @@ export function Orbit({ dict }: Props) {
       raf = 0
       const r = sec.getBoundingClientRect()
       if (r.bottom < 0 || r.top > innerHeight) return
-      const p = clamp(-r.top / (sec.offsetHeight - innerHeight))
+      // the flight starts while the section is still coming up (its top at LEAD of the screen), not once it pins:
+      // the first card is already in the black strip under the cases, as at Luke's, instead of an empty screen
+      const lead = innerHeight * LEAD
+      const p = clamp((lead - r.top) / (sec.offsetHeight - innerHeight + lead))
       const phone = innerWidth <= 768
       const stagger = phone ? DEEP_STAGGER : STAGGER
 

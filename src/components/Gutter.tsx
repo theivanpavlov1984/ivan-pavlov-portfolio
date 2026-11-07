@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 import styles from './Gutter.module.css'
 
 const LINE = 22 // the page is read as a file of 22px lines
-const sections = ['hero', 'about', 'principle', 'work', 'reviews', 'contact']
+const sections = ['hero', 'reel', 'about', 'principle', 'work', 'experience', 'reviews', 'contact']
 
 // editor gutter: line numbers scroll with the page; the middle line and current section are in ember
 export function Gutter() {

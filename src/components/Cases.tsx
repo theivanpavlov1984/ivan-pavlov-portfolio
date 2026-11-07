@@ -96,12 +96,26 @@ export function Cases({ dict }: Props) {
                       </div>
                     </div>
                     {c.visual === 'photo' ? (
-                      <div className={`${styles.visual} ${styles.photo}`}>
+                      // a live product: the whole photo is the link, the round button only appears with the colour on hover
+                      <a
+                        className={`${styles.visual} ${styles.photo}`}
+                        href={c.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={c.url ? `${work.visit}: ${c.name}` : undefined}
+                        tabIndex={i === active ? undefined : -1}
+                      >
                         <Image src={photos[c.id][0]} alt={c.name} sizes="(max-width: 760px) 100vw, 45vw" />
                         {photos[c.id][1] ? (
                           <Image src={photos[c.id][1]!} alt="" className={styles.alt} sizes="(max-width: 760px) 100vw, 45vw" />
                         ) : null}
-                      </div>
+                        {c.url ? (
+                          <span className={styles.visit} aria-hidden="true">
+                            <span className="mono">{work.visit}</span>
+                            <i>↗</i>
+                          </span>
+                        ) : null}
+                      </a>
                     ) : c.visual === 'layers' ? (
                       <CaseLayers />
                     ) : (

@@ -1,0 +1,77 @@
+.tools {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(20px, 4vw, 64px);
+  margin: 48px 0 0;
+  padding: 0;
+  list-style: none;
+  /* clipped while the logos rise out of it, open afterwards so a pushed logo can fly over the edge */
+  overflow: hidden;
+}
+
+.tools[data-free='true'] {
+  overflow: visible;
+}
+
+.tools li {
+  transform: translateY(110%);
+}
+
+/* rise: Namma's 1.5s with a 0.1s stagger, on an ease that starts slow and lands soft */
+.tools[data-in='true'] li {
+  transform: none;
+  transition: transform 1.5s cubic-bezier(0.65, 0, 0.1, 1);
+  transition-delay: calc(var(--i) * 0.1s);
+}
+
+.logo {
+  display: block;
+  width: clamp(64px, 7vw, 112px);
+  aspect-ratio: 1;
+  will-change: transform;
+}
+
+.logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* placeholder until the 3D render is in: a soft, slightly puffy bone tile */
+.ph {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 30%;
+  background: radial-gradient(circle at 35% 30%, #f6f1e7, #d9d1c1 75%);
+  box-shadow:
+    inset -4px -6px 10px rgba(13, 12, 10, 0.12),
+    inset 3px 4px 8px rgba(255, 255, 255, 0.7),
+    0 10px 20px -10px rgba(13, 12, 10, 0.35);
+}
+
+.ph :global(.mono) {
+  font-size: 10px;
+  color: rgba(13, 12, 10, 0.6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tools li {
+    transform: none;
+    transition: none !important;
+  }
+}
+
+@media (max-width: 760px) {
+  /* two even rows of three instead of a ragged wrap */
+  .tools {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 18px 28px;
+    margin-top: 32px;
+  }
+}

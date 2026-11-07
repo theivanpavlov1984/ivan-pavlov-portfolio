@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getDictionary, hasLocale, locales } from '@/i18n'
-import { hand, mono, serif, travels } from '@/fonts'
+import { hand, mono, serif, sign, travels } from '@/fonts'
 import '../globals.css'
 
 // intro once per visit: set classes before first paint so the hero never flashes
@@ -51,7 +51,7 @@ export default async function RootLayout({ children, params }: LayoutProps<'/[la
     // intro classes are added to <html> before React hydrates, hence suppressHydrationWarning
     <html
       lang={lang}
-      className={`${travels.variable} ${mono.variable} ${serif.variable} ${hand.variable}`}
+      className={`${travels.variable} ${mono.variable} ${serif.variable} ${hand.variable} ${sign.variable}`}
       suppressHydrationWarning
     >
       <head>

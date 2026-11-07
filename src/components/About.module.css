@@ -65,10 +65,46 @@
   aspect-ratio: 1;
   margin: 6px 0 16px 40px;
   shape-margin: 18px;
-  transform: rotate(-6deg);
+  position: relative;
+  container-type: inline-size; /* the signature is sized from the photo */
+  /* --ph (0 → 1, set by About on scroll): from a tilted sticker to a straighter, slightly bigger photo */
+  transform: rotate(calc(-6deg + var(--ph, 0) * 4.5deg)) scale(calc(1 + var(--ph, 0) * 0.14));
+  transform-origin: 60% 40%;
+}
+
+.frame {
+  display: block;
+  height: 100%;
   overflow: hidden;
   background: #cfc8ba;
   box-shadow: 0 18px 40px -12px rgba(10, 10, 10, 0.28);
+}
+
+/* the signature runs over the bottom-left corner and out of the photo; a left-to-right wipe (--sig) writes it */
+.sign {
+  position: absolute;
+  left: -14%;
+  bottom: -9%;
+  font-family: var(--font-sign), cursive;
+  font-size: 30cqw;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--ember);
+  transform: rotate(-9deg);
+  pointer-events: none;
+  /* a little extra room top and bottom, so the swashes are never cut by the wipe */
+  padding: 0.2em 0.1em;
+  clip-path: inset(-0.2em calc((1 - var(--sig, 0)) * 100%) -0.2em 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sticker {
+    transform: rotate(-6deg);
+  }
+
+  .sign {
+    clip-path: none;
+  }
 }
 
 .sticker img {

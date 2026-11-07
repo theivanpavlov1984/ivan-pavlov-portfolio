@@ -5,6 +5,8 @@ import { Hero } from '@/components/Hero'
 import { About } from '@/components/About'
 import { Principle } from '@/components/Principle'
 import { Cases } from '@/components/Cases'
+import { Showreel } from '@/components/Showreel'
+import { Experience } from '@/components/Experience'
 import { Reviews } from '@/components/Reviews'
 import { Footer } from '@/components/Footer'
 import { TagCursor } from '@/components/TagCursor'
@@ -20,9 +22,11 @@ export default async function Page({ params }: PageProps<'/[lang]'>) {
       <SiteNav lang={lang} dict={dict} />
       <main>
         <Hero dict={dict} />
+        <Showreel dict={dict} />
         <About dict={dict} />
         <Principle dict={dict} />
         <Cases dict={dict} />
+        <Experience dict={dict} />
         <Reviews dict={dict} />
       </main>
       <Footer dict={dict} />

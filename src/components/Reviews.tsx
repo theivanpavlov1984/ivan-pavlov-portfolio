@@ -2,9 +2,12 @@ import Image from 'next/image'
 import { reviews } from '@/content/reviews'
 import type { Dictionary } from '@/i18n-config'
 import { RevealHeading } from './RevealHeading'
+import { RevealText } from './RevealText'
+import { ReviewMore } from './ReviewMore'
 import styles from './Reviews.module.css'
 
-// LinkedIn recommendations styled as approvals on a pull request; <details> expands without JS
+// LinkedIn recommendations styled as approvals on a pull request; quotes come in word by word,
+// the full text opens in an animated accordion
 export function Reviews({ dict }: { dict: Pick<Dictionary, 'reviews'> }) {
   const { reviews: t } = dict
   return (
@@ -33,22 +36,13 @@ export function Reviews({ dict }: { dict: Pick<Dictionary, 'reviews'> }) {
               </p>
               <span className={`${styles.badge} mono`}>✓ Approved</span>
             </header>
-            <blockquote className={styles.quote} lang="en">
-              “{r.quote}”
-            </blockquote>
+            <RevealText text={`“${r.quote}”`} className={styles.quote} lang="en" />
             <p className={`${styles.labels} mono`}>
               {r.labels.map((l) => (
                 <i key={l}>{l}</i>
               ))}
             </p>
-            <details className={styles.full}>
-              <summary className="mono">{t.showFull}</summary>
-              {r.full.map((p, i) => (
-                <p key={i} lang="en">
-                  {p}
-                </p>
-              ))}
-            </details>
+            <ReviewMore label={t.showFull} paragraphs={r.full} />
           </article>
         ))}
       </div>
