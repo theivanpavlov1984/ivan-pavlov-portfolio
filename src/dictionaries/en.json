@@ -10,7 +10,8 @@
     "status": "Open for work",
     "skills": "Product · Design Systems · React",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "skip": "Skip to work"
   },
   "menu": {
     "home": "Home",
@@ -69,7 +70,7 @@
   },
   "about": {
     "label": "(01) — About",
-    "text": "Hi, I'm Ivan — a product designer who opens the code editor{code} as often as Figma. For 10+ years I've designed the unglamorous stuff: [enterprise suites](0), [transport apps](1){ticket}, [trading desks](3){spark} and the [design systems](2){toggle} underneath them. I like complexity that ends up feeling obvious{line}. Today I prototype in React, build with AI and ship my own small products — the best way to understand a handoff is to stand on both sides of it.",
+    "text": "Hi, I'm Ivan, a product designer who opens the code editor{code} as often as Figma. For 10+ years I've designed the unglamorous stuff: [enterprise suites](0), [transport apps](1){ticket}, [trading desks](3){spark} and the [design systems](2){toggle} underneath them. I like complexity that ends up feeling obvious{line}. Today I prototype in React, build with AI and ship my own small products. The best way to understand a handoff is to stand on both sides of it.",
     "workedWith": "(Worked with)",
     "photoAlt": "Ivan Pavlov"
   },
@@ -83,6 +84,7 @@
     "meta": "(02) — 2017—2026",
     "eraseHint": "Erase the legacy →",
     "visit": "Visit site",
+    "didLabel": "What I did",
     "cases": [
       {
         "id": "01",
@@ -105,6 +107,7 @@
             "label": "DS components"
           }
         ],
+        "did": "Took all three from research to release, grew the design system to 50+ components and brought design review and AI tools into the process.",
         "visual": "photo"
       },
       {
@@ -128,6 +131,7 @@
             "label": "zero-to-one"
           }
         ],
+        "did": "Designed the Moya Troika app (iOS, Android) from zero: fare payment, top-ups and trips, plus its design system and the passenger web account.",
         "visual": "photo"
       },
       {
@@ -151,6 +155,7 @@
             "label": "users"
           }
         ],
+        "did": "Built tokens, variables and theming into the UUI design system, from research and CJM to work with distributed teams.",
         "visual": "photo"
       },
       {
@@ -174,6 +179,7 @@
             "label": "zero-to-one"
           }
         ],
+        "did": "Designed trading, liquidity pools and farming, the interface architecture and the UI kit both products are built on.",
         "visual": "photo"
       },
       {
@@ -197,6 +203,7 @@
             "label": "FWA"
           }
         ],
+        "did": "Designed the mobile version at Geex Arts, in art director Slava Kornilov's team.",
         "visual": "photo"
       }
     ]
@@ -291,10 +298,10 @@
     "label": "(05) — Contact",
     "ctaBefore": "Your product deserves a ",
     "ctaEm": "system",
-    "status": "Open to roles — Senior / Lead Product Designer · Design Systems",
+    "status": "Open to roles: Senior / Lead Product Designer · Design Systems",
     "termHint": "# click a command to run it",
     "orEmail": "or just email →",
-    "designedBy": "Designed & built by Ivan — Figma + Claude Code",
+    "designedBy": "Designed & built by Ivan with Figma + Claude Code",
     "backToTop": "Back to top ↑",
     "copied": "copied ✓"
   }

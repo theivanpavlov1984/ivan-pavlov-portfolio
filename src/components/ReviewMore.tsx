@@ -15,7 +15,7 @@ export function ReviewMore({ label, paragraphs }: Props) {
     <div className={styles.full} data-open={open}>
       <button type="button" className={`${styles.toggle} mono`} aria-expanded={open} aria-controls={id} onClick={() => setOpen(!open)}>
         <i aria-hidden="true">+</i>
-        {label}
+        <span>{label}</span>
       </button>
       <div id={id} className={styles.more} inert={!open}>
         <div>

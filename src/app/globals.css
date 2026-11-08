@@ -83,3 +83,22 @@ em {
 .loading body {
   overflow: hidden;
 }
+
+/* skip link: hidden until it gets keyboard focus, then a small ink tag in the top-left corner */
+.skip {
+  position: fixed;
+  left: 24px;
+  top: 16px;
+  z-index: 100;
+  padding: 10px 14px;
+  border-radius: 4px;
+  background: var(--ink);
+  color: var(--bone);
+  transform: translateY(-200%);
+}
+
+.skip:focus-visible {
+  transform: none;
+  outline: 2px solid var(--ember);
+  outline-offset: 2px;
+}

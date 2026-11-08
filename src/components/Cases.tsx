@@ -62,6 +62,13 @@ export function Cases({ dict }: Props) {
     }
   }, [work.cases.length])
 
+  // the same scroll position the active case is read from: the middle of the case's share of the stretch
+  const openCase = (i: number) => {
+    const c = cases.current!
+    const n = work.cases.length
+    scrollTo({ top: c.getBoundingClientRect().top + scrollY + ((i + 0.5) / n) * (c.offsetHeight - innerHeight) })
+  }
+
   return (
     <section ref={section} className={styles.work} id="work" data-dark="">
       <div className={styles.head}>
@@ -94,6 +101,11 @@ export function Cases({ dict }: Props) {
                           </div>
                         ))}
                       </div>
+                      {/* how it got from "before" to "after"; desktop only, the pinned accordion has no room for it on phones */}
+                      <p className={styles.did}>
+                        <span className="mono">{work.didLabel}</span>
+                        {c.did}
+                      </p>
                     </div>
                     {c.visual === 'photo' ? (
                       // a live product: the whole photo is the link, the round button only appears with the colour on hover
@@ -103,7 +115,8 @@ export function Cases({ dict }: Props) {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={c.url ? `${work.visit}: ${c.name}` : undefined}
-                        tabIndex={i === active ? undefined : -1}
+                        // keyboard: every case is a Tab stop; focusing a closed one scrolls the accordion to it, so it opens
+                        onFocus={() => i !== active && openCase(i)}
                       >
                         <Image src={photos[c.id][0]} alt={c.name} sizes="(max-width: 760px) 100vw, 45vw" />
                         {photos[c.id][1] ? (

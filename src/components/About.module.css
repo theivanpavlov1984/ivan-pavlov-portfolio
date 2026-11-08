@@ -41,21 +41,27 @@
   white-space: nowrap;
 }
 
-/* links to cases: underline darkens with the text */
+/* links to cases: a quiet underline; on hover an ember one is drawn over it from left to right,
+   running on to the next line when the link wraps (two background lines instead of text-decoration) */
 .link {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 0.14em;
-  text-decoration-color: rgba(13, 12, 10, 0.15);
-  transition: text-decoration-color 0.3s;
+  --line: rgba(13, 12, 10, 0.15);
+  /* vertical padding on an inline link adds tap area without moving the lines; the underlines stay on the text */
+  padding: 10px 0;
+  background-origin: content-box;
+  background-image: linear-gradient(var(--ember), var(--ember)), linear-gradient(var(--line), var(--line));
+  background-repeat: no-repeat;
+  background-position: 0 100%, 0 100%;
+  background-size: 0% 2px, 100% 2px;
+  transition: background-size 0.5s var(--ease-out);
 }
 
 .link[data-on='true'] {
-  text-decoration-color: var(--ink);
+  --line: var(--ink);
 }
 
-.link:hover {
-  text-decoration-color: var(--ember);
+.link:hover,
+.link:focus-visible {
+  background-size: 100% 2px, 100% 2px;
 }
 
 /* ---------- photo sticker, text flows around it ---------- */
@@ -100,6 +106,10 @@
 @media (prefers-reduced-motion: reduce) {
   .sticker {
     transform: rotate(-6deg);
+  }
+
+  .link {
+    transition: none;
   }
 
   .sign {

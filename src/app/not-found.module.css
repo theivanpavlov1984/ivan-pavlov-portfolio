@@ -1,0 +1,91 @@
+/* global 404 (global-not-found.tsx): bone page, the name line of the hero turned into 4●4 */
+.page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  text-align: center;
+}
+
+.code {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.12em;
+  font-size: clamp(120px, 28vw, 420px);
+  font-weight: 700;
+  line-height: 0.82;
+  letter-spacing: -0.02em;
+}
+
+/* same circle as between IVAN and PAVLOV */
+.win {
+  position: relative;
+  width: 0.78em;
+  height: 0.78em;
+  flex: none;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.win img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: auto;
+  /* the hero crop at rest (Hero.tsx): head and neck centred */
+  transform-origin: 50% 11%;
+  transform: translateY(19%) scale(2.75);
+}
+
+.text {
+  font-size: clamp(18px, 1.8vw, 28px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.links {
+  display: flex;
+  gap: 24px;
+}
+
+/* same hover as the links in About: an ember line is drawn over the quiet one from the left */
+.links a {
+  display: inline-block;
+  padding: 12px 4px;
+  background-image: linear-gradient(var(--ember), var(--ember)), linear-gradient(var(--ink), var(--ink));
+  background-repeat: no-repeat;
+  background-position: 0 100%, 0 100%;
+  background-size: 0% 2px, 100% 1px;
+  transition: background-size 0.5s var(--ease-out);
+}
+
+.links a:hover,
+.links a:focus-visible {
+  background-size: 100% 2px, 100% 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .links a {
+    transition: none;
+  }
+}
+
+/* phones: the two languages on their own lines instead of a dot left hanging at a line end */
+@media (max-width: 760px) {
+  .dot {
+    display: none;
+  }
+
+  .ru {
+    display: block;
+  }
+}

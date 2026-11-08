@@ -25,6 +25,21 @@
   gap: 4px;
 }
 
+/* keyboard focus: one frame around the whole logo, "Hi, I'm" above it included
+   (the default outline split into two boxes because of the absolutely placed line) */
+.logo:focus-visible {
+  outline: none;
+}
+
+.logo:focus-visible::after {
+  content: '';
+  position: absolute;
+  inset: -28px -8px -6px -8px;
+  border: 2px solid var(--ember);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
 .hey {
   position: absolute;
   left: -2px;
@@ -60,7 +75,7 @@
 
 .logo i {
   font-style: normal;
-  opacity: 0.45;
+  opacity: 0.5; /* 3.5:1 on bone (was 2.99) */
 }
 
 .status {
@@ -150,8 +165,15 @@
 .page {
   height: 100%;
   overflow-y: auto;
+  /* still scrolls on a very low screen (landscape), but without a scrollbar: Android Chrome flashed one at the right
+     edge while the page turned in and out */
+  scrollbar-width: none;
   transform: translate(-100px, -100px) rotate(-15deg) scale(1.5);
   transition: transform var(--page);
+}
+
+.page::-webkit-scrollbar {
+  display: none;
 }
 
 .menu[data-open='true'] .page {
@@ -162,7 +184,9 @@
 .inner {
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
+  /* the menu's own height, not 100dvh: in mobile Safari the two differ by the toolbar, and that gap
+     turned into a few pixels of scroll at the end */
+  min-height: 100%;
   padding: 140px 24px 64px;
 }
 
@@ -291,7 +315,18 @@
 .top {
   transition:
     color 0.3s,
-    opacity 0.6s;
+    opacity 0.6s,
+    transform 0.4s var(--ease-out);
+}
+
+/* phones, scrolling down (SiteNav.tsx): the header slides up out of the way */
+.top[data-hidden='true'] {
+  transform: translateY(-100%);
+}
+
+/* but never while a link in it has keyboard focus */
+.top:focus-within {
+  transform: none;
 }
 
 :global(html[data-hero-dark='true']) .top:not([data-open='true']),
@@ -302,13 +337,14 @@
 
 /* header sits on a frosted strip in the colour of the section under it, so it never collides with text */
 .top {
-  background: rgba(236, 230, 218, 0.86);
+  /* dense enough that a light/dark section edge passing under it reads as a faint tint, not a muddy grey band */
+  background: rgba(236, 230, 218, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
 
 :global(html[data-work-dark='true']) .top:not([data-open='true']) {
-  background: rgba(13, 12, 10, 0.78);
+  background: rgba(13, 12, 10, 0.92);
 }
 
 /* over the full-screen portrait and over the open menu the strip disappears */
@@ -346,6 +382,14 @@
     padding: 120px 16px 48px;
   }
 
+  /* short phones (iPhone SE and the like): a little less air above and below so everything fits without scroll */
+  @media (max-height: 720px) {
+    .inner {
+      padding-top: 96px;
+      padding-bottom: 28px;
+    }
+  }
+
   /* contact rows: label above the value so long values (email) fit */
   .rows li,
   .rows li > a {
@@ -360,4 +404,10 @@
   .rows b {
     font-size: 17px;
   }
+}
+
+/* EN/RU: the two letters stay where they are, the tap area around them grows to about 44 px */
+.lang {
+  padding: 15px;
+  margin: -15px;
 }

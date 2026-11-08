@@ -480,6 +480,16 @@
     right: 16px;
     bottom: 40px;
   }
+
+  /* the portrait circle moves under the name (Hero.tsx, PHONE_CIRCLE 0.42): the slot shrinks to a word space,
+     and the name rises by half the circle so the pair sits in the middle of the screen */
+  .slot {
+    width: 0.2em;
+  }
+
+  .name {
+    margin-top: calc(-21vw - 12px);
+  }
 }
 
 @media (max-width: 760px) {

@@ -29,6 +29,21 @@ export function SiteNav({ lang, dict }: Props) {
     return () => removeEventListener('keydown', onKey)
   }, [open])
 
+  // phones: the header slides away while you scroll down and comes back as soon as you scroll up,
+  // so on a narrow screen it never sits on top of the text you are reading
+  const [hidden, setHidden] = useState(false)
+  useEffect(() => {
+    let last = scrollY
+    const onScroll = () => {
+      const y = scrollY, dy = y - last
+      if (Math.abs(dy) < 6) return // ignore jitter
+      setHidden(innerWidth <= 760 && dy > 0 && y > 120)
+      last = y
+    }
+    addEventListener('scroll', onScroll, { passive: true })
+    return () => removeEventListener('scroll', onScroll)
+  }, [])
+
   const close = () => setOpen(false)
   const items = [
     { href: '#hero', label: menu.home },
@@ -38,7 +53,7 @@ export function SiteNav({ lang, dict }: Props) {
 
   return (
     <>
-      <header className={styles.top} data-open={open}>
+      <header className={styles.top} data-open={open} data-hidden={hidden && !open}>
         <a href="#hero" className={styles.logo} onClick={close}>
           <span className={styles.hey}>{header.hey}</span>
           <span className={styles.swap}>
@@ -60,7 +75,17 @@ export function SiteNav({ lang, dict }: Props) {
         </a>
 
         <div className={styles.right}>
-          <Link href={`/${other}`} className="mono" hrefLang={other}>
+          <Link
+            href={`/${other}`}
+            className={`${styles.lang} mono`}
+            hrefLang={other}
+            onClick={(e) => {
+              // a plain click plays the grid curtain (LangWipe), which switches the route itself; new tab etc. stay native
+              if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return
+              e.preventDefault()
+              dispatchEvent(new CustomEvent('langwipe', { detail: other }))
+            }}
+          >
             {other.toUpperCase()}
           </Link>
           <button

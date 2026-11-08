@@ -53,7 +53,7 @@
   gap: 7px;
   padding: 10px 14px;
   background: #1c1a17;
-  color: rgba(236, 230, 218, 0.5);
+  color: rgba(236, 230, 218, 0.58); /* 4.5:1+ on the terminal bar */
   font-size: 11px;
 }
 
@@ -78,7 +78,7 @@
 }
 
 .hint {
-  color: rgba(236, 230, 218, 0.4);
+  color: rgba(236, 230, 218, 0.56); /* 4.5:1+ on ink */
   margin-bottom: 6px;
 }
 
@@ -203,5 +203,19 @@
   .dot {
     display: inline-block;
     margin-right: 6px;
+  }
+}
+
+/* phones: each command line is a finger-sized target (about 44 px) */
+@media (max-width: 760px) {
+  .body button {
+    padding: 11px 0;
+  }
+
+  /* the email and "back to top" keep their look, the tap area grows around them */
+  .plain button,
+  .footBar a {
+    padding: 13px 0;
+    margin: -13px 0;
   }
 }
