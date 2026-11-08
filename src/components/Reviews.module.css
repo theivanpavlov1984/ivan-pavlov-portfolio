@@ -68,7 +68,7 @@
 
 .top :global(.mono) {
   font-size: 10px;
-  color: rgba(13, 12, 10, 0.55);
+  color: rgba(13, 12, 10, 0.65); /* 4.5:1+ for 10px text */
   letter-spacing: 0.04em;
 }
 
@@ -109,7 +109,7 @@
   padding: 3px 8px;
   border-radius: 99px;
   background: rgba(255, 77, 0, 0.12);
-  color: #b83700;
+  color: #a83200; /* deep ember: 5:1 on the tinted chip */
 }
 
 .full {
@@ -128,6 +128,25 @@
 
 .toggle:hover {
   color: var(--ink);
+}
+
+/* the label gets an ember underline drawn from the left, the + gives a quarter turn */
+.toggle span {
+  background-image: linear-gradient(var(--ember), var(--ember));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  padding-bottom: 2px;
+  transition: background-size 0.4s var(--ease-out);
+}
+
+.toggle:hover span,
+.toggle:focus-visible span {
+  background-size: 100% 1px;
+}
+
+.toggle:hover i {
+  transform: rotate(90deg);
 }
 
 /* the + turns a quarter-and-a-bit into × */
@@ -188,6 +207,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .toggle i,
+  .toggle span,
   .more,
   .more p {
     transition: none !important;

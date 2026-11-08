@@ -6,7 +6,7 @@ import heroImg from '@/assets/hero.jpg'
 import type { Dictionary } from '@/i18n-config'
 import type { CSSVars } from '@/types/css'
 import { LiveCard } from './LiveCard'
-import { blueprintPointer, drawBlueprint } from './heroBlueprint'
+import { PHONE_CIRCLE, blueprintPointer, drawBlueprint } from './heroBlueprint'
 import { depthPortrait } from './heroDepth'
 import styles from './Hero.module.css'
 
@@ -58,35 +58,42 @@ export function Hero({ dict }: Props) {
       const s = section.current!, w = win.current!, sl = slot.current!, st = stick.current!
       const vh = innerHeight
       const p = clamp(-s.getBoundingClientRect().top / (s.offsetHeight - vh))
-      const e = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2
+      // reduced motion: the circle is still placed (in the slot, or under the name on phones), it just never grows
+      const e = reduce ? 0 : p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2
 
-      if (!reduce) {
-        // stays a circle: grows from the slot to the viewport diagonal, centre moves to the screen centre
-        const sr = sl.getBoundingClientRect(), str = st.getBoundingClientRect()
-        const diag = Math.hypot(innerWidth, vh), d = sr.width + e * (diag - sr.width)
-        const cx = (sr.left - str.left + sr.width / 2) * (1 - e) + (innerWidth / 2) * e
-        const cy = (sr.top - str.top + sr.height / 2) * (1 - e) + (vh / 2) * e
-        w.style.width = w.style.height = d + 'px'
-        w.style.transform = `translate(${cx - d / 2}px, ${cy - d / 2}px)`
-        // the portrait, card and tokens are laid out against the screen, not the circle
-        const ox = (e * (d - innerWidth)) / 2, oy = (e * (d - vh)) / 2
-        w.style.setProperty('--ox', ox + 'px')
-        w.style.setProperty('--oy', oy + 'px')
-        // when open the photo covers the screen: on a tall phone it's height-bound, so it gets wider than the screen and centred
-        const pr = por.current!
-        const coverW = Math.max(innerWidth, vh * (heroImg.width / heroImg.height))
-        pr.style.left = ox + ((innerWidth - coverW) / 2) * e + 'px'
-        pr.style.top = oy + 'px'
-        pr.style.width = d * (1 - e) + coverW * e + 'px'
-        // avatar crop: head + neck centred in the circle; scale ≥2.73 keeps the photo's top edge above the frame
-        pr.style.transform = `translateY(${(1 - e) * 19}%) scale(${1 + (1 - e) * 1.75})`
-        const shift = e * innerWidth * 0.6
-        left.current!.style.transform = `translateX(${-shift}px)`
-        right.current!.style.transform = `translateX(${shift}px)`
-        role.current!.style.opacity = String(1 - e * 2)
-        w.dataset.tokens = String(e > 0.6)
-        w.dataset.open = String(e > 0.75)
+      // stays a circle: grows from the slot to the viewport diagonal, centre moves to the screen centre
+      const sr = sl.getBoundingClientRect(), str = st.getBoundingClientRect()
+      // phones: the name line is too thin for a readable face in the slot, so the circle starts big, centred
+      // under the name (the slot shrinks to a word space in CSS), and opens from there
+      let d0 = sr.width, cx0 = sr.left - str.left + sr.width / 2, cy0 = sr.top - str.top + sr.height / 2
+      if (innerWidth <= 760) {
+        d0 = innerWidth * PHONE_CIRCLE
+        cx0 = innerWidth / 2
+        cy0 = name.current!.getBoundingClientRect().bottom - str.top + 24 + d0 / 2
       }
+      const diag = Math.hypot(innerWidth, vh), d = d0 + e * (diag - d0)
+      const cx = cx0 * (1 - e) + (innerWidth / 2) * e
+      const cy = cy0 * (1 - e) + (vh / 2) * e
+      w.style.width = w.style.height = d + 'px'
+      w.style.transform = `translate(${cx - d / 2}px, ${cy - d / 2}px)`
+      // the portrait, card and tokens are laid out against the screen, not the circle
+      const ox = (e * (d - innerWidth)) / 2, oy = (e * (d - vh)) / 2
+      w.style.setProperty('--ox', ox + 'px')
+      w.style.setProperty('--oy', oy + 'px')
+      // when open the photo covers the screen: on a tall phone it's height-bound, so it gets wider than the screen and centred
+      const pr = por.current!
+      const coverW = Math.max(innerWidth, vh * (heroImg.width / heroImg.height))
+      pr.style.left = ox + ((innerWidth - coverW) / 2) * e + 'px'
+      pr.style.top = oy + 'px'
+      pr.style.width = d * (1 - e) + coverW * e + 'px'
+      // avatar crop: head + neck centred in the circle; scale ≥2.73 keeps the photo's top edge above the frame
+      pr.style.transform = `translateY(${(1 - e) * 19}%) scale(${1 + (1 - e) * 1.75})`
+      const shift = e * innerWidth * 0.6
+      left.current!.style.transform = `translateX(${-shift}px)`
+      right.current!.style.transform = `translateX(${shift}px)`
+      role.current!.style.opacity = String(1 - e * 2)
+      w.dataset.tokens = String(e > 0.6)
+      w.dataset.open = String(e > 0.75)
       // header turns light while the portrait covers the screen
       html.dataset.heroDark = String(e > 0.85 && s.getBoundingClientRect().bottom > 60)
     }

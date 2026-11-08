@@ -11,6 +11,7 @@ import { Reviews } from '@/components/Reviews'
 import { Footer } from '@/components/Footer'
 import { TagCursor } from '@/components/TagCursor'
 import { Gutter } from '@/components/Gutter'
+import { LangWipe } from '@/components/LangWipe'
 
 export default async function Page({ params }: PageProps<'/[lang]'>) {
   const { lang } = await params
@@ -19,6 +20,10 @@ export default async function Page({ params }: PageProps<'/[lang]'>) {
 
   return (
     <>
+      {/* first Tab stop: jumps past the hero, showreel and about straight to the cases */}
+      <a className="skip mono" href="#work">
+        {dict.header.skip}
+      </a>
       <SiteNav lang={lang} dict={dict} />
       <main>
         <Hero dict={dict} />
@@ -33,6 +38,7 @@ export default async function Page({ params }: PageProps<'/[lang]'>) {
       {/* desktop-only layers: tag cursor and editor line numbers */}
       <TagCursor />
       <Gutter />
+      <LangWipe lang={lang} />
     </>
   )
 }

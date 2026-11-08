@@ -5,6 +5,9 @@ type Parts = { stick: HTMLElement; name: HTMLElement; slot: HTMLElement; grid: H
 type Classes = Record<'v' | 'h' | 'node' | 'hot' | 'label' | 'logLine' | 'coord', string>
 
 const MARGIN = 24
+// phones: the avatar circle's diameter at rest, as a share of the screen width (Hero.tsx places it under the name,
+// Hero.module.css lifts the name by half of it: margin-top -21vw)
+export const PHONE_CIRCLE = 0.42
 const bootLog = ['loading design tokens', 'compiling 10+ years', 'aligning to 4px grid', 'mounting <Hero />']
 const pad = (s: string, len = 28) => s + ' ' + '.'.repeat(Math.max(2, len - s.length)) + ' '
 
@@ -16,12 +19,16 @@ export function drawBlueprint({ stick, name, slot, grid, log }: Parts, css: Clas
   const n = name.getBoundingClientRect()
   const s = slot.getBoundingClientRect()
   const W = box.width, H = box.height
-  const axis = s.left - box.left + s.width / 2
+  // the axis and the midline cross where the avatar circle opens: in the name's slot, or on phones
+  // centred under the name (same placement as Hero.tsx)
+  const phone = innerWidth <= 760
+  const axis = phone ? W / 2 : s.left - box.left + s.width / 2
+  const mid = phone ? n.bottom - box.top + 24 + (W * PHONE_CIRCLE) / 2 : s.top - box.top + s.height / 2
   const content = W - MARGIN * 2
 
   // 5 × 5 like a page blueprint: margins, column guides, axis | header, cap, midline, baseline, caption
   const xs = [MARGIN, MARGIN + content / 4, axis, MARGIN + (content * 3) / 4, W - MARGIN]
-  const ys = [Math.round(H * 0.11), n.top - box.top, s.top - box.top + s.height / 2, n.bottom - box.top, Math.round(H * 0.86)]
+  const ys = [Math.round(H * 0.11), n.top - box.top, mid, n.bottom - box.top, Math.round(H * 0.86)]
 
   const el = (cls: string, style: Partial<CSSStyleDeclaration>, delay: number, text = '') => {
     const d = document.createElement('div')
@@ -46,7 +53,8 @@ export function drawBlueprint({ stick, name, slot, grid, log }: Parts, css: Clas
   )
   el(css.label, { left: `${xs[0] + 8}px`, top: `${ys[0] - 18}px` }, T.labels, `margin / ${MARGIN}px`)
   el(css.label, { left: `${axis + 8}px`, top: `${ys[0] - 18}px` }, T.labels + 0.05, 'axis / center')
-  el(css.label, { left: `${xs[1] + 8}px`, top: `${ys[4] + 8}px` }, T.labels + 0.1, 'col / 03')
+  // phones: above its line, so it doesn't run into the boot log below
+  el(css.label, { left: `${xs[1] + 8}px`, top: `${ys[4] + (phone ? -18 : 8)}px` }, T.labels + 0.1, 'col / 03')
   el(css.label, { right: `${MARGIN + 56}px`, top: `${ys[2] - 18}px` }, T.labels + 0.15, 'midline')
   el(css.label, { left: `${xs[0] + 8}px`, top: `${ys[3] + 8}px` }, T.labels + 0.2, `baseline / ${Math.round(ys[3])}px`)
 

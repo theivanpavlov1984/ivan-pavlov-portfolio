@@ -31,6 +31,9 @@ const cards: [StaticImageData, string][] = [
 const STAGGER = 0.07 // each card starts this much later (share of its own path)
 const DEEP_STAGGER = 0.2 // phones: cards come out of the depth one after another, not in a crowd
 const LEAD = 0.85 // the flight starts once the section's top rises past this share of the screen height
+// the pinned stretch was cut by this share at the tail (600vh → 518vh, phones 500vh → 432vh): the phrase keeps its old
+// scroll pace, the cards finish their flight that much sooner, so no empty black screen is left after the last one
+const TAIL = 0.86
 const range = (stagger: number) => 1 + stagger * (cards.length - 1)
 
 const clamp = (v: number) => Math.min(1, Math.max(0, v))
@@ -91,6 +94,7 @@ export function Orbit({ dict }: Props) {
       // the first card is already in the black strip under the cases, as at Luke's, instead of an empty screen
       const lead = innerHeight * LEAD
       const p = clamp((lead - r.top) / (sec.offsetHeight - innerHeight + lead))
+      const pPhrase = p * TAIL // where the phrase would be on the old, longer stretch
       const phone = innerWidth <= 768
       const stagger = phone ? DEEP_STAGGER : STAGGER
 
@@ -107,7 +111,7 @@ export function Orbit({ dict }: Props) {
       })
 
       // phrase: surfaces word by word out of a blur, drifts up, fades out
-      const g = clamp((p - 0.22) / 0.56)
+      const g = clamp((pPhrase - 0.22) / 0.56)
       const ph = phrase.current!
       ph.style.transform = `translateY(${(160 * (0.5 - g)).toFixed(1)}px)`
       ph.style.opacity = String(g <= 0 || g >= 1 ? 0 : Math.min(1, g / 0.1, (1 - g) / 0.25))

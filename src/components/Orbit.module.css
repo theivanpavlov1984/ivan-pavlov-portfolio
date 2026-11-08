@@ -1,7 +1,7 @@
 /* orbit gallery (Orbit.tsx): pinned for the length of the section, cards turn around the phrase in 3D */
 .orbit {
   position: relative;
-  height: 600vh;
+  height: 518vh; /* (600vh − 100vh + 85vh lead) × TAIL 0.86, back in vh; see Orbit.tsx */
 }
 
 .pin {
@@ -88,7 +88,7 @@
 /* phones: cards fly out of the depth (Orbit.tsx), so they are smaller and the pinned stretch is shorter */
 @media (max-width: 768px) {
   .orbit {
-    height: 500vh;
+    height: 432vh; /* (500 − 100 + 85) × 0.86 − 85 + 100 */
   }
 
   .card {

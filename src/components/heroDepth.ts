@@ -79,6 +79,8 @@ export function depthPortrait({ por, img, canvas }: Parts) {
   let mx = 0, my = 0, tx = 0, ty = 0
   let blinkStart = -1, blinks = 1
   let draw = () => {}
+  // canvas width for a given on-screen width (set once the textures are in and the size limit is known)
+  let stepWidth = (w: number) => (w ? canvas.width : 0)
   const schedule = () => {
     if (!raf) raf = requestAnimationFrame(() => draw())
   }
@@ -158,9 +160,9 @@ export function depthPortrait({ por, img, canvas }: Parts) {
       const uBlink = gl.getUniformLocation(prog, 'uBlink')
 
       // canvas resolution follows the on-screen size in steps, so scrolling doesn't reallocate it every frame
+      stepWidth = (w) => Math.min(max, Math.ceil((w * devicePixelRatio) / 128) * 128)
       const fit = () => {
-        const r = por.getBoundingClientRect()
-        const w = Math.min(max, Math.ceil((r.width * devicePixelRatio) / 128) * 128)
+        const w = stepWidth(por.getBoundingClientRect().width)
         if (w === canvas.width) return
         canvas.width = w
         canvas.height = Math.round((w * por.offsetHeight) / por.offsetWidth)
@@ -190,14 +192,22 @@ export function depthPortrait({ por, img, canvas }: Parts) {
     addEventListener('pointermove', onMove)
     document.addEventListener('pointerleave', onLeave)
   }
-  addEventListener('scroll', schedule, { passive: true })
+  // scrolling: redraw only while the portrait is on screen. On touch there is no tilt to follow, so only when the
+  // canvas has to change resolution (it grows with the circle); otherwise the stretched last frame is still right
+  const onScroll = () => {
+    const r = por.getBoundingClientRect()
+    if (r.bottom <= 0 || r.top >= innerHeight) return
+    if (!pointer && canvas.width === stepWidth(r.width)) return
+    schedule()
+  }
+  addEventListener('scroll', onScroll, { passive: true })
   addEventListener('resize', schedule)
   return () => {
     alive = false
     cancelAnimationFrame(raf)
     clearTimeout(blinkTimer)
     removeEventListener('pointermove', onMove)
-    removeEventListener('scroll', schedule)
+    removeEventListener('scroll', onScroll)
     removeEventListener('resize', schedule)
     document.removeEventListener('pointerleave', onLeave)
     // free our resources but keep the context: React StrictMode remounts on the same canvas

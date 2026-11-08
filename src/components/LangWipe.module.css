@@ -1,0 +1,151 @@
+/* language curtain (LangWipe.tsx): the intro's guides draw in over a bone fill, then retract on the other side.
+   data-state: idle → cover (animated in) | shown (already covered, no animation) → reveal (animated out) → idle */
+.wipe {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  pointer-events: none;
+}
+
+.wipe[data-state='cover'],
+.wipe[data-state='shown'] {
+  pointer-events: auto;
+}
+
+.fill {
+  position: absolute;
+  inset: 0;
+  background: var(--bone);
+  opacity: 0;
+}
+
+.v,
+.h {
+  position: absolute;
+  background: rgba(13, 12, 10, 0.16);
+}
+
+/* margin, quarter, axis, three quarters, margin */
+.v {
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  left: calc(24px + (100% - 48px) * var(--i) / 4);
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+/* top band, midline, bottom band */
+.h {
+  left: 0;
+  right: 0;
+  height: 1px;
+  top: calc(18% + 32% * var(--i));
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.tag,
+.locale,
+.log {
+  position: absolute;
+  font-family: var(--mono);
+  white-space: pre;
+  opacity: 0;
+}
+
+.tag {
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(13, 12, 10, 0.5);
+}
+
+.margin {
+  left: 32px;
+  top: calc(18% - 18px);
+}
+
+.axis {
+  left: calc(50% + 8px);
+  top: calc(18% - 18px);
+}
+
+.mid {
+  right: 32px;
+  top: calc(50% - 18px);
+}
+
+/* the one ember thing on screen: which way the page is going */
+.locale {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, 12px);
+  padding: 4px 8px;
+  border-radius: 2px;
+  background: var(--ember);
+  color: var(--ink);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.log {
+  left: 24px;
+  bottom: calc(18% + 16px);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: rgba(13, 12, 10, 0.55);
+}
+
+.log b {
+  color: var(--ember);
+  font-weight: 500;
+}
+
+/* ---------- in: lines draw from the top and the left, the fill and the labels follow ---------- */
+.wipe[data-state='cover'] .v,
+.wipe[data-state='cover'] .h {
+  transform: none;
+  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1) calc(var(--i) * 0.04s);
+}
+
+.wipe[data-state='cover'] .fill {
+  opacity: 1;
+  transition: opacity 0.3s 0.15s;
+}
+
+.wipe[data-state='cover'] :is(.tag, .locale, .log) {
+  opacity: 1;
+  transition: opacity 0.2s 0.28s;
+}
+
+/* already covered when the new language mounts */
+.wipe[data-state='shown'] :is(.v, .h) {
+  transform: none;
+}
+
+.wipe[data-state='shown'] :is(.fill, .tag, .locale, .log) {
+  opacity: 1;
+}
+
+/* ---------- out: labels go first, the fill lifts, lines retract into the far edges ---------- */
+.wipe[data-state='reveal'] .v {
+  transform-origin: bottom;
+}
+
+.wipe[data-state='reveal'] .h {
+  transform-origin: right;
+}
+
+.wipe[data-state='reveal'] :is(.v, .h) {
+  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1) calc(0.1s + var(--i) * 0.04s);
+}
+
+.wipe[data-state='reveal'] .fill {
+  transition: opacity 0.35s 0.1s;
+}
+
+.wipe[data-state='reveal'] :is(.tag, .locale, .log) {
+  transition: opacity 0.15s;
+}
