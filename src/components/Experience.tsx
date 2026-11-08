@@ -108,11 +108,12 @@ function List({ kind, count, card, children }: { kind: 'skills'; count: number; 
   )
 }
 
-// the title rolls up to its twin on hover (kstoimenov)
+// the title rolls up to its twin on hover (kstoimenov); the twin is drawn by CSS from data-t,
+// so the heading text is not doubled for search engines
 const Roll = ({ text }: { text: string }) => (
   <span className={styles.roll}>
     <span>{text}</span>
-    <span aria-hidden="true">{text}</span>
+    <span aria-hidden="true" data-t={text} />
   </span>
 )
 
