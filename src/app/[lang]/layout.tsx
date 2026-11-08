@@ -27,7 +27,8 @@ export async function generateMetadata({ params }: LayoutProps<'/[lang]'>): Prom
     metadataBase: new URL(SITE),
     title: meta.title,
     description: meta.description,
-    alternates: { languages: { en: '/en', ru: '/ru' } },
+    // canonical: each language is its own page; hreflang pairs them, x-default is where / redirects
+    alternates: { canonical: `/${lang}`, languages: { en: '/en', ru: '/ru', 'x-default': '/en' } },
     // the preview card: the hero, 1200×630 @2x, served from app/opengraph-image.png. Linked by hand, because
     // the root layout lives in [lang] and a metadata file there would get a /-/ path that 404s in production
     openGraph: {

@@ -10,7 +10,7 @@ export function Principle({ dict }: { dict: Pick<Dictionary, 'principle'> }) {
     <section className={styles.principle} id="principle">
       <article>
         <span className="mono">{principle.label}</span>
-        <h3>{principle.title}</h3>
+        <h2>{principle.title}</h2>
         <p>{principle.text}</p>
         <Tools />
       </article>

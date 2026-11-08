@@ -77,6 +77,10 @@
   color: var(--ember);
 }
 
+.roll > span + span::before {
+  content: attr(data-t);
+}
+
 [data-on='true'] .roll > span:first-child {
   transform: translateY(-105%);
 }

@@ -118,10 +118,10 @@ export function SiteNav({ lang, dict }: Props) {
                 <li className={styles.cv}>
                   <span className="mono">{labels.resume}</span>
                   <b>
-                    <a href={contacts.cv.en} target="_blank">
+                    <a href={contacts.cv.en} target="_blank" rel="noopener">
                       EN · PDF
                     </a>
-                    <a href={contacts.cv.ru} target="_blank">
+                    <a href={contacts.cv.ru} target="_blank" rel="noopener">
                       RU · PDF
                     </a>
                   </b>

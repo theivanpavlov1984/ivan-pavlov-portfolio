@@ -15,7 +15,7 @@
   grid-column: 1 / -1;
 }
 
-.principle h3 {
+.principle h2 {
   font-size: clamp(32px, 4.4vw, 72px);
   font-weight: 700;
   line-height: 1;

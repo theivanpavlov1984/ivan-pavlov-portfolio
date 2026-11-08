@@ -31,6 +31,8 @@ export const serif = PT_Serif({
   subsets: ['latin', 'cyrillic'],
   variable: '--font-serif',
   display: 'swap',
+  // RU only: not preloaded, so /en does not download it
+  preload: false,
 })
 
 // handwritten "Hi, I'm" in the logo
@@ -47,4 +49,6 @@ export const sign = Mrs_Saint_Delafield({
   subsets: ['latin'],
   variable: '--font-sign',
   display: 'swap',
+  // one word below the fold: fetched when it is needed, not ahead of the hero
+  preload: false,
 })
