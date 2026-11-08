@@ -177,7 +177,9 @@
 .inner {
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
+  /* the menu's own height, not 100dvh: in mobile Safari the two differ by the toolbar, and that gap
+     turned into a few pixels of scroll at the end */
+  min-height: 100%;
   padding: 140px 24px 64px;
 }
 
@@ -371,6 +373,14 @@
 
   .inner {
     padding: 120px 16px 48px;
+  }
+
+  /* short phones (iPhone SE and the like): a little less air above and below so everything fits without scroll */
+  @media (max-height: 720px) {
+    .inner {
+      padding-top: 96px;
+      padding-bottom: 28px;
+    }
   }
 
   /* contact rows: label above the value so long values (email) fit */

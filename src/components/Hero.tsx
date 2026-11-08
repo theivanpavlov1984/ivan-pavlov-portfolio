@@ -10,6 +10,9 @@ import { PHONE_CIRCLE, blueprintPointer, drawBlueprint } from './heroBlueprint'
 import { depthPortrait } from './heroDepth'
 import styles from './Hero.module.css'
 
+// phones: height of the open portrait in screen heights; 2.4 is what a 1440×900 desktop shows (head to chest)
+const PHONE_OPEN = 2.4
+
 type Props = { dict: Pick<Dictionary, 'hero' | 'facts'> }
 
 // callouts sit in photo % coordinates, so they stay on the body at any window size
@@ -80,9 +83,12 @@ export function Hero({ dict }: Props) {
       const ox = (e * (d - innerWidth)) / 2, oy = (e * (d - vh)) / 2
       w.style.setProperty('--ox', ox + 'px')
       w.style.setProperty('--oy', oy + 'px')
-      // when open the photo covers the screen: on a tall phone it's height-bound, so it gets wider than the screen and centred
+      // when open the photo covers the screen. Desktop: width-bound, so the screen shows head to chest (the photo is
+      // ~2.4 screens tall). Phones: the same crop, so the photo is sized to 2.4 screen heights, wider than the screen
+      // and centred, instead of fitting the whole figure in
       const pr = por.current!
-      const coverW = Math.max(innerWidth, vh * (heroImg.width / heroImg.height))
+      const ratio = heroImg.width / heroImg.height
+      const coverW = Math.max(innerWidth, vh * (innerWidth <= 760 ? PHONE_OPEN : 1) * ratio)
       pr.style.left = ox + ((innerWidth - coverW) / 2) * e + 'px'
       pr.style.top = oy + 'px'
       pr.style.width = d * (1 - e) + coverW * e + 'px'
